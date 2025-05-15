@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Kursova
 {
-    public partial class AddRegionForm: Form
+    public partial class AddRegionForm : Form
     {
         public AddRegionForm()
         {
             InitializeComponent();
+        }
+
+        private void Додати_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
