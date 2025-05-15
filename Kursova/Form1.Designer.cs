@@ -1,6 +1,6 @@
 ﻿namespace Kursova
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,12 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            listBoxGeoObjects = new ListBox();
+            Додати = new Button();
+            SuspendLayout();
+            // 
+            // listBoxGeoObjects
+            // 
+            listBoxGeoObjects.FormattingEnabled = true;
+            listBoxGeoObjects.Location = new Point(62, 54);
+            listBoxGeoObjects.Name = "listBoxGeoObjects";
+            listBoxGeoObjects.Size = new Size(150, 84);
+            listBoxGeoObjects.TabIndex = 0;
+            // 
+            // Додати
+            // 
+            Додати.Location = new Point(218, 82);
+            Додати.Name = "Додати";
+            Додати.Size = new Size(134, 29);
+            Додати.TabIndex = 1;
+            Додати.Text = "Додати";
+            Додати.UseVisualStyleBackColor = true;
+            Додати.Click += Додати_Click;
+            // 
+            // MainForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(Додати);
+            Controls.Add(listBoxGeoObjects);
+            Name = "MainForm";
+            Text = "MainForm";
+            Load += Form1_Load;
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private ListBox listBoxGeoObjects;
+        private Button Додати;
     }
 }
