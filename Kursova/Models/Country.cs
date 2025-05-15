@@ -21,5 +21,24 @@ namespace Kursova.Models
             GovernmentType = governmentType;
             Capital = capital;
         }
+
+        public override string ToString()
+        {
+            return $"Країна|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area}|{Population}|{GovernmentType}|{Capital}";
+        }
+
+        public static new Country FromString(string line)
+        {
+            string[] arr = line.Split('|');
+            return new Country(
+                Convert.ToString(arr[1]),
+                (double.Parse(arr[2]),
+                double.Parse(arr[3])),
+                double.Parse(arr[4]),
+                Convert.ToInt32(arr[5]),
+                Convert.ToString(arr[6]),
+                Convert.ToString(arr[7])
+            );
+        }
     }
 }

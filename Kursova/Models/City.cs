@@ -14,5 +14,21 @@ namespace Kursova.Models
         {
             Population = population;
         }
+
+        public override string ToString()
+        {
+            return $"Місто|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Population}";
+        }
+
+        public static new City FromString(string line)
+        {
+            string[] arr = line.Split('|');
+            return new City(
+                Convert.ToString(arr[1]),
+                (double.Parse(arr[2]),
+                double.Parse(arr[3])),
+                Convert.ToInt32(arr[4])
+            );
+        }
     }
 }

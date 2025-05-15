@@ -37,12 +37,13 @@
             textBoxLongitude = new TextBox();
             textBoxPopulation = new TextBox();
             Додати = new Button();
+            ButtonBack = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(89, 86);
+            label1.Location = new Point(106, 88);
             label1.Name = "label1";
             label1.Size = new Size(91, 20);
             label1.TabIndex = 0;
@@ -51,7 +52,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(88, 136);
+            label2.Location = new Point(105, 138);
             label2.Name = "label2";
             label2.Size = new Size(64, 20);
             label2.TabIndex = 1;
@@ -60,7 +61,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(88, 191);
+            label3.Location = new Point(105, 193);
             label3.Name = "label3";
             label3.Size = new Size(65, 20);
             label3.TabIndex = 2;
@@ -69,7 +70,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(89, 237);
+            label4.Location = new Point(106, 239);
             label4.Name = "label4";
             label4.Size = new Size(85, 20);
             label4.TabIndex = 3;
@@ -77,46 +78,58 @@
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(209, 83);
+            textBoxName.Location = new Point(226, 85);
             textBoxName.Name = "textBoxName";
             textBoxName.Size = new Size(110, 27);
             textBoxName.TabIndex = 4;
             // 
             // textBoxLatitude
             // 
-            textBoxLatitude.Location = new Point(209, 133);
+            textBoxLatitude.Location = new Point(226, 135);
             textBoxLatitude.Name = "textBoxLatitude";
             textBoxLatitude.Size = new Size(110, 27);
             textBoxLatitude.TabIndex = 5;
             // 
             // textBoxLongitude
             // 
-            textBoxLongitude.Location = new Point(209, 184);
+            textBoxLongitude.Location = new Point(226, 186);
             textBoxLongitude.Name = "textBoxLongitude";
             textBoxLongitude.Size = new Size(110, 27);
             textBoxLongitude.TabIndex = 6;
             // 
             // textBoxPopulation
             // 
-            textBoxPopulation.Location = new Point(209, 234);
+            textBoxPopulation.Location = new Point(226, 236);
             textBoxPopulation.Name = "textBoxPopulation";
             textBoxPopulation.Size = new Size(110, 27);
             textBoxPopulation.TabIndex = 7;
             // 
             // Додати
             // 
-            Додати.Location = new Point(368, 161);
+            Додати.Location = new Point(385, 163);
             Додати.Name = "Додати";
             Додати.Size = new Size(94, 29);
             Додати.TabIndex = 8;
             Додати.Text = "Додати";
             Додати.UseVisualStyleBackColor = true;
+            Додати.Click += Додати_Click;
+            // 
+            // ButtonBack
+            // 
+            ButtonBack.Location = new Point(12, 12);
+            ButtonBack.Name = "ButtonBack";
+            ButtonBack.Size = new Size(94, 29);
+            ButtonBack.TabIndex = 9;
+            ButtonBack.Text = "Назад";
+            ButtonBack.UseVisualStyleBackColor = true;
+            ButtonBack.Click += ButtonBack_Click;
             // 
             // AddCityForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(ButtonBack);
             Controls.Add(Додати);
             Controls.Add(textBoxPopulation);
             Controls.Add(textBoxLongitude);
@@ -143,5 +156,6 @@
         private TextBox textBoxLongitude;
         private TextBox textBoxPopulation;
         private Button Додати;
+        private Button ButtonBack;
     }
 }

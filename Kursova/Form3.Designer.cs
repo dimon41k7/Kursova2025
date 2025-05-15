@@ -43,11 +43,12 @@
             label6 = new Label();
             listBoxType = new ListBox();
             label7 = new Label();
+            ButtonBack = new Button();
             SuspendLayout();
             // 
             // Додати
             // 
-            Додати.Location = new Point(912, 127);
+            Додати.Location = new Point(920, 132);
             Додати.Name = "Додати";
             Додати.Size = new Size(94, 29);
             Додати.TabIndex = 17;
@@ -57,21 +58,21 @@
             // 
             // textBoxLongitude
             // 
-            textBoxLongitude.Location = new Point(219, 184);
+            textBoxLongitude.Location = new Point(227, 189);
             textBoxLongitude.Name = "textBoxLongitude";
             textBoxLongitude.Size = new Size(110, 27);
             textBoxLongitude.TabIndex = 15;
             // 
             // textBoxLatitude
             // 
-            textBoxLatitude.Location = new Point(219, 133);
+            textBoxLatitude.Location = new Point(227, 138);
             textBoxLatitude.Name = "textBoxLatitude";
             textBoxLatitude.Size = new Size(110, 27);
             textBoxLatitude.TabIndex = 14;
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(219, 83);
+            textBoxName.Location = new Point(227, 88);
             textBoxName.Name = "textBoxName";
             textBoxName.Size = new Size(110, 27);
             textBoxName.TabIndex = 13;
@@ -79,7 +80,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(98, 191);
+            label3.Location = new Point(106, 196);
             label3.Name = "label3";
             label3.Size = new Size(65, 20);
             label3.TabIndex = 11;
@@ -88,7 +89,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(98, 136);
+            label2.Location = new Point(106, 141);
             label2.Name = "label2";
             label2.Size = new Size(64, 20);
             label2.TabIndex = 10;
@@ -97,7 +98,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(99, 86);
+            label1.Location = new Point(107, 91);
             label1.Name = "label1";
             label1.Size = new Size(107, 20);
             label1.TabIndex = 9;
@@ -105,21 +106,21 @@
             // 
             // textBoxPopulation
             // 
-            textBoxPopulation.Location = new Point(475, 180);
+            textBoxPopulation.Location = new Point(483, 185);
             textBoxPopulation.Name = "textBoxPopulation";
             textBoxPopulation.Size = new Size(110, 27);
             textBoxPopulation.TabIndex = 23;
             // 
             // textBoxCountry
             // 
-            textBoxCountry.Location = new Point(475, 129);
+            textBoxCountry.Location = new Point(483, 134);
             textBoxCountry.Name = "textBoxCountry";
             textBoxCountry.Size = new Size(110, 27);
             textBoxCountry.TabIndex = 22;
             // 
             // textBoxCapital
             // 
-            textBoxCapital.Location = new Point(475, 79);
+            textBoxCapital.Location = new Point(483, 84);
             textBoxCapital.Name = "textBoxCapital";
             textBoxCapital.Size = new Size(110, 27);
             textBoxCapital.TabIndex = 21;
@@ -127,7 +128,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(354, 187);
+            label4.Location = new Point(362, 192);
             label4.Name = "label4";
             label4.Size = new Size(85, 20);
             label4.TabIndex = 20;
@@ -136,7 +137,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(354, 132);
+            label5.Location = new Point(362, 137);
             label5.Name = "label5";
             label5.Size = new Size(123, 20);
             label5.TabIndex = 19;
@@ -145,7 +146,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(355, 82);
+            label6.Location = new Point(363, 87);
             label6.Name = "label6";
             label6.Size = new Size(67, 20);
             label6.TabIndex = 18;
@@ -154,7 +155,7 @@
             // listBoxType
             // 
             listBoxType.FormattingEnabled = true;
-            listBoxType.Location = new Point(679, 79);
+            listBoxType.Location = new Point(687, 84);
             listBoxType.Name = "listBoxType";
             listBoxType.Size = new Size(216, 124);
             listBoxType.TabIndex = 24;
@@ -162,17 +163,28 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(619, 136);
+            label7.Location = new Point(627, 141);
             label7.Name = "label7";
             label7.Size = new Size(35, 20);
             label7.TabIndex = 25;
             label7.Text = "Вид";
+            // 
+            // ButtonBack
+            // 
+            ButtonBack.Location = new Point(12, 12);
+            ButtonBack.Name = "ButtonBack";
+            ButtonBack.Size = new Size(94, 29);
+            ButtonBack.TabIndex = 26;
+            ButtonBack.Text = "Назад";
+            ButtonBack.UseVisualStyleBackColor = true;
+            ButtonBack.Click += ButtonBack_Click;
             // 
             // AddRegionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1182, 450);
+            Controls.Add(ButtonBack);
             Controls.Add(label7);
             Controls.Add(listBoxType);
             Controls.Add(textBoxPopulation);
@@ -190,6 +202,7 @@
             Controls.Add(label1);
             Name = "AddRegionForm";
             Text = "AddRegionForm";
+            Load += AddRegionForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -211,5 +224,6 @@
         private Label label6;
         private ListBox listBoxType;
         private Label label7;
+        private Button ButtonBack;
     }
 }

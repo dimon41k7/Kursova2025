@@ -30,6 +30,8 @@
         {
             listBoxGeoObjects = new ListBox();
             Додати = new Button();
+            listBoxGeoObjectsAll = new ListBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // listBoxGeoObjects
@@ -50,22 +52,44 @@
             Додати.UseVisualStyleBackColor = true;
             Додати.Click += Додати_Click;
             // 
+            // listBoxGeoObjectsAll
+            // 
+            listBoxGeoObjectsAll.FormattingEnabled = true;
+            listBoxGeoObjectsAll.Location = new Point(62, 174);
+            listBoxGeoObjectsAll.Name = "listBoxGeoObjectsAll";
+            listBoxGeoObjectsAll.Size = new Size(533, 184);
+            listBoxGeoObjectsAll.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(282, 138);
+            label1.Name = "label1";
+            label1.Size = new Size(134, 20);
+            label1.TabIndex = 3;
+            label1.Text = "Загальний список";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1182, 450);
+            Controls.Add(label1);
+            Controls.Add(listBoxGeoObjectsAll);
             Controls.Add(Додати);
             Controls.Add(listBoxGeoObjects);
             Name = "MainForm";
             Text = "MainForm";
             Load += Form1_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private ListBox listBoxGeoObjects;
         private Button Додати;
+        private ListBox listBoxGeoObjectsAll;
+        private Label label1;
     }
 }

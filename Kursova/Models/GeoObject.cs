@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kursova.Models
 {
-    class GeoObject
+    public class GeoObject
     {
         public string Name { get; set; }
         public (double Latitude, double Longitude) Coordinates { get; set; }

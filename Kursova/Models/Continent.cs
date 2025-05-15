@@ -17,5 +17,22 @@ namespace Kursova.Models
             Area = area;
             Population = population;
         }
+
+        public override string ToString()
+        {
+            return $"Континент|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area}|{Population}";
+        }
+
+        public static new Continent FromString(string line)
+        {
+            string[] arr = line.Split('|');
+            return new Continent(
+                Convert.ToString(arr[1]),
+                (double.Parse(arr[2]),
+                double.Parse(arr[3])),
+                double.Parse(arr[4]),
+                Convert.ToInt32(arr[5])
+            );
+        }
     }
 }

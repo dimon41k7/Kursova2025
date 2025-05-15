@@ -1,7 +1,10 @@
+using Kursova.Models;
+
 namespace Kursova
 {
     public partial class MainForm : Form
     {
+        private ListGeoObjects listGeoObjects = new ListGeoObjects();
         public MainForm()
         {
             InitializeComponent();
@@ -20,25 +23,25 @@ namespace Kursova
             var selectedItem = listBoxGeoObjects.SelectedItem;
             if (selectedItem == "Місто")
             {
-                AddCityForm addForm = new AddCityForm();
+                AddCityForm addForm = new AddCityForm(listGeoObjects, this);
                 this.Hide();
                 addForm.Show();
             }
             else if (selectedItem == "Регіон")
             {
-                AddRegionForm addForm = new AddRegionForm();
+                AddRegionForm addForm = new AddRegionForm(listGeoObjects, this);
                 this.Hide();
                 addForm.Show();
             }
             else if (selectedItem == "Країна")
             {
-                AddCountryForm addForm = new AddCountryForm(); 
+                AddCountryForm addForm = new AddCountryForm(listGeoObjects, this);
                 this.Hide();
                 addForm.Show();
             }
             else if (selectedItem == "Континент")
             {
-                AddContinentForm addForm = new AddContinentForm();
+                AddContinentForm addForm = new AddContinentForm(listGeoObjects, this);
                 this.Hide();
                 addForm.Show();
             }
@@ -47,5 +50,15 @@ namespace Kursova
                 MessageBox.Show("Якщо ви хочете додати місто, регіон, країну чи континент до списку, то вам потрібно обрати з списку, що ви хочете додати!");
             }
         }
+
+        public void RefreshList()
+        {
+            listBoxGeoObjectsAll.Items.Clear();
+            foreach (var item in listGeoObjects.ShowGeoObjects())
+            {
+                listBoxGeoObjectsAll.Items.Add(item.ToString());
+            }
+        }
+
     }
 }
