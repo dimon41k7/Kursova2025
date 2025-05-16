@@ -137,39 +137,48 @@ namespace Kursova
 
         private void ButtonBack_Click(object sender, EventArgs e)
         {
-            ((MainForm)mainForm).RefreshList();
+            if (mainForm is MainForm main)
+            {
+                string selected = main.SelectedMorKm;
+
+                if (selected == "Милі")
+                    main.RefreshListInMile();
+                else
+                    main.RefreshList();
+            }
+            //((MainForm)mainForm).RefreshList();
             mainForm.Show();
             this.Close();
         }
 
-        private void AddCountryForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
-            switch (result)
-            {
-                case DialogResult.Yes:
-                    using (StreamWriter writer = new("objects.txt"))
-                    {
-                        foreach (var obj in listGeoObjects)
-                        {
-                            writer.WriteLine(obj.ToString());
-                        }
-                    }
+        //private void AddCountryForm_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
+        //    switch (result)
+        //    {
+        //        case DialogResult.Yes:
+        //            using (StreamWriter writer = new("objects.txt"))
+        //            {
+        //                foreach (var obj in listGeoObjects)
+        //                {
+        //                    writer.WriteLine(obj.ToString());
+        //                }
+        //            }
 
-                    using (StreamWriter writer = new("favoritesobjects.txt"))
-                    {
-                        foreach (var obj in listFavoritesObjects)
-                        {
-                            writer.WriteLine(obj.ToString());
-                        }
-                    }
-                    break;
-                case DialogResult.No:
-                    break;
-                case DialogResult.Cancel:
-                    e.Cancel = true;
-                    break;
-            }
-        }
+        //            using (StreamWriter writer = new("favoritesobjects.txt"))
+        //            {
+        //                foreach (var obj in listFavoritesObjects)
+        //                {
+        //                    writer.WriteLine(obj.ToString());
+        //                }
+        //            }
+        //            break;
+        //        case DialogResult.No:
+        //            break;
+        //        case DialogResult.Cancel:
+        //            e.Cancel = true;
+        //            break;
+        //    }
+        //}
     }
 }

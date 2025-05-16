@@ -26,6 +26,11 @@ namespace Kursova.Models
             return $"Регіон|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Type}|{Country}|{Capital}|{Population}";
         }
 
+        public override string ToStringInMile()
+        {
+            return $"Регіон|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Type}|{Country}|{Capital}|{Population}";
+        }
+
         public static new GeoRegion FromString(string line)
         {
             string[] arr = line.Split('|');

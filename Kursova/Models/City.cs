@@ -20,6 +20,10 @@ namespace Kursova.Models
             return $"Місто|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Population}";
         }
 
+        public override string ToStringInMile()
+        {
+            return $"Місто|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Population}";
+        }
         public static new City FromString(string line)
         {
             string[] arr = line.Split('|');

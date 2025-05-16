@@ -16,5 +16,10 @@ namespace Kursova.Models
             Name = name;
             Coordinates = coordinates;
         }
+
+        public virtual string ToStringInMile()
+        {
+            return ToString();
+        }
     }
 }

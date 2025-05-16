@@ -19,6 +19,9 @@ namespace Kursova
             listBoxGeoObjects.Items.Add("Регіон");
             listBoxGeoObjects.Items.Add("Країна");
             listBoxGeoObjects.Items.Add("Континент");
+            comboBoxArea.Items.Add("Кілометри");
+            comboBoxArea.Items.Add("Милі");
+            comboBoxArea.SelectedIndex = 0;
         }
 
         private void Додати_Click(object sender, EventArgs e)
@@ -69,6 +72,21 @@ namespace Kursova
             }
         }
 
+        public void RefreshListInMile()
+        {
+            listBoxGeoObjectsAll.Items.Clear();
+            foreach (var item in listGeoObjects.ShowGeoObjects())
+            {
+                listBoxGeoObjectsAll.Items.Add(item.ToStringInMile());
+            }
+
+            listBoxFavorites.Items.Clear();
+            foreach (var item in listFavoritesObjects.ShowFavorites())
+            {
+                listBoxFavorites.Items.Add(item.ToStringInMile());
+            }
+        }
+
         private void buttonFavorites_Click(object sender, EventArgs e)
         {
             var selectedItem = listBoxGeoObjectsAll.SelectedItem;
@@ -77,17 +95,39 @@ namespace Kursova
                 MessageBox.Show("Оберіть, який елемент ви хочете додати в обране!");
                 return;
             }
+            string selected = comboBoxArea.SelectedItem.ToString();
             string line = selectedItem.ToString();
             if (line.StartsWith("Місто|"))
                 listFavoritesObjects.AddFavorite(City.FromString(line));
             else if (line.StartsWith("Регіон|"))
                 listFavoritesObjects.AddFavorite(GeoRegion.FromString(line));
             else if (line.StartsWith("Країна|"))
-                listFavoritesObjects.AddFavorite(Country.FromString(line));
+            {
+                var obj = Country.FromString(line);
+                if (selected == "Милі")
+                {
+                    obj.Area = obj.Area * 1.60934;
+                }
+                listFavoritesObjects.AddFavorite(obj);
+            }
+                
             else if (line.StartsWith("Континент|"))
+            {
+                var obj = Continent.FromString(line);
+                if (selected == "Милі")
+                {
+                    obj.Area = obj.Area * 1.60934;
+                }
                 listFavoritesObjects.AddFavorite(Continent.FromString(line));
-
-            RefreshList();
+            } 
+            if (selected == "Милі")
+            {
+                RefreshListInMile();
+            }
+            else if (selected == "Кілометри")
+            {
+                RefreshList();
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -151,7 +191,16 @@ namespace Kursova
                 }
 
             }
-            RefreshList();
+            string selected = comboBoxArea.SelectedItem.ToString();
+
+            if (selected == "Милі")
+            {
+                RefreshListInMile();
+            }
+            else if (selected == "Кілометри")
+            {
+                RefreshList();
+            }
         }
 
         private void buttonShowObject_Click(object sender, EventArgs e)
@@ -253,7 +302,16 @@ namespace Kursova
                 {
                     case DialogResult.Yes:
                         listGeoObjects.RemoveGeoObject(listBoxGeoObjectsAll.SelectedIndex);
-                        RefreshList();
+                        string selected = comboBoxArea.SelectedItem.ToString();
+
+                        if (selected == "Милі")
+                        {
+                            RefreshListInMile();
+                        }
+                        else if (selected == "Кілометри")
+                        {
+                            RefreshList();
+                        }
                         break;
                     case DialogResult.No:
                         break;
@@ -266,7 +324,16 @@ namespace Kursova
                 {
                     case DialogResult.Yes:
                         listFavoritesObjects.RemoveFavorite(listBoxFavorites.SelectedIndex);
-                        RefreshList();
+                        string selected = comboBoxArea.SelectedItem.ToString();
+
+                        if (selected == "Милі")
+                        {
+                            RefreshListInMile();
+                        }
+                        else if (selected == "Кілометри")
+                        {
+                            RefreshList();
+                        }
                         break;
                     case DialogResult.No:
                         break;
@@ -343,6 +410,25 @@ namespace Kursova
                     e.Cancel = true;
                     break;
             }
+        }
+
+        private void comboBoxArea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = comboBoxArea.SelectedItem.ToString();
+
+            if (selected == "Милі")
+            {
+                RefreshListInMile();
+            }
+            else if (selected == "Кілометри")
+            {
+                RefreshList();
+            }
+        }
+
+        public string SelectedMorKm
+        {
+            get => comboBoxArea.SelectedItem?.ToString();
         }
     }
 }

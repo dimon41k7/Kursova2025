@@ -38,6 +38,7 @@
             listBoxFavorites = new ListBox();
             buttonShowObject = new Button();
             buttonDelete = new Button();
+            comboBoxArea = new ComboBox();
             SuspendLayout();
             // 
             // listBoxGeoObjects
@@ -135,11 +136,21 @@
             buttonDelete.UseVisualStyleBackColor = true;
             buttonDelete.Click += buttonDelete_Click;
             // 
+            // comboBoxArea
+            // 
+            comboBoxArea.FormattingEnabled = true;
+            comboBoxArea.Location = new Point(1156, 82);
+            comboBoxArea.Name = "comboBoxArea";
+            comboBoxArea.Size = new Size(151, 28);
+            comboBoxArea.TabIndex = 10;
+            comboBoxArea.SelectedIndexChanged += comboBoxArea_SelectedIndexChanged;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 450);
+            Controls.Add(comboBoxArea);
             Controls.Add(buttonDelete);
             Controls.Add(buttonShowObject);
             Controls.Add(listBoxFavorites);
@@ -170,5 +181,6 @@
         private ListBox listBoxFavorites;
         private Button buttonShowObject;
         private Button buttonDelete;
+        private ComboBox comboBoxArea;
     }
 }

@@ -24,9 +24,13 @@ namespace Kursova.Models
 
         public override string ToString()
         {
-            return $"Країна|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area}|{Population}|{GovernmentType}|{Capital}";
+            return $"Країна|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area}|{Population}|{GovernmentType}|{Capital}";   
         }
 
+        public override string ToStringInMile()
+        {
+            return $"Країна|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area* 0.621371}|{Population}|{GovernmentType}|{Capital}";
+        }
         public static new Country FromString(string line)
         {
             string[] arr = line.Split('|');

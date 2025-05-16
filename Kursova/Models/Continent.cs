@@ -20,9 +20,13 @@ namespace Kursova.Models
 
         public override string ToString()
         {
-            return $"Континент|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area}|{Population}";
+            return $"Континент|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area}|{Population}";  
         }
 
+        public override string ToStringInMile()
+        {
+            return $"Континент|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area* 0.621371}|{Population}";
+        }
         public static new Continent FromString(string line)
         {
             string[] arr = line.Split('|');
