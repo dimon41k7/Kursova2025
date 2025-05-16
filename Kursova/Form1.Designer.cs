@@ -36,6 +36,8 @@
             buttonSave = new Button();
             buttonLoad = new Button();
             listBoxFavorites = new ListBox();
+            buttonShowObject = new Button();
+            buttonDelete = new Button();
             SuspendLayout();
             // 
             // listBoxGeoObjects
@@ -63,6 +65,7 @@
             listBoxGeoObjectsAll.Name = "listBoxGeoObjectsAll";
             listBoxGeoObjectsAll.Size = new Size(533, 184);
             listBoxGeoObjectsAll.TabIndex = 2;
+            listBoxGeoObjectsAll.MouseClick += listBoxGeoObjectsAll_MouseClick;
             // 
             // label1
             // 
@@ -110,12 +113,35 @@
             listBoxFavorites.Name = "listBoxFavorites";
             listBoxFavorites.Size = new Size(533, 184);
             listBoxFavorites.TabIndex = 7;
+            listBoxFavorites.MouseClick += listBoxFavorites_MouseClick;
+            // 
+            // buttonShowObject
+            // 
+            buttonShowObject.Location = new Point(613, 120);
+            buttonShowObject.Name = "buttonShowObject";
+            buttonShowObject.Size = new Size(151, 29);
+            buttonShowObject.TabIndex = 8;
+            buttonShowObject.Text = "Показати на мапі";
+            buttonShowObject.UseVisualStyleBackColor = true;
+            buttonShowObject.Click += buttonShowObject_Click;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Location = new Point(613, 382);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(151, 29);
+            buttonDelete.TabIndex = 9;
+            buttonDelete.Text = "Видалити";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 450);
+            Controls.Add(buttonDelete);
+            Controls.Add(buttonShowObject);
             Controls.Add(listBoxFavorites);
             Controls.Add(buttonLoad);
             Controls.Add(buttonSave);
@@ -126,6 +152,7 @@
             Controls.Add(listBoxGeoObjects);
             Name = "MainForm";
             Text = "MainForm";
+            FormClosing += MainForm_FormClosing;
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -141,5 +168,7 @@
         private Button buttonSave;
         private Button buttonLoad;
         private ListBox listBoxFavorites;
+        private Button buttonShowObject;
+        private Button buttonDelete;
     }
 }

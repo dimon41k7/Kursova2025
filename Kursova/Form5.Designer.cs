@@ -161,6 +161,7 @@
             Controls.Add(label1);
             Name = "AddContinentForm";
             Text = "AddContinentForm";
+            FormClosing += AddContinentForm_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -141,6 +141,7 @@
             Controls.Add(label1);
             Name = "AddCityForm";
             Text = "AddCityForm";
+            FormClosing += AddCityForm_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

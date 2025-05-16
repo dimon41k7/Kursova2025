@@ -202,6 +202,7 @@
             Controls.Add(label1);
             Name = "AddCountryForm";
             Text = "AddCountryForm";
+            FormClosing += AddCountryForm_FormClosing;
             Load += AddCountryForm_Load;
             ResumeLayout(false);
             PerformLayout();

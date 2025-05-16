@@ -14,10 +14,12 @@ namespace Kursova
     public partial class AddCityForm : Form
     {
         private ListGeoObjects listGeoObjects;
+        private Favorites listFavoritesObjects = new Favorites();
         private Form mainForm;
-        public AddCityForm(ListGeoObjects list, Form mainForm)
+        public AddCityForm(ListGeoObjects list, Favorites listf, Form mainForm)
         {
             listGeoObjects = list;
+            listFavoritesObjects = listf;
             this.mainForm = mainForm;
             InitializeComponent();
         }
@@ -86,6 +88,36 @@ namespace Kursova
             ((MainForm)mainForm).RefreshList();
             mainForm.Show();
             this.Close();
+        }
+
+        private void AddCityForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    using (StreamWriter writer = new("objects.txt"))
+                    {
+                        foreach (var obj in listGeoObjects)
+                        {
+                            writer.WriteLine(obj.ToString());
+                        }
+                    }
+
+                    using (StreamWriter writer = new("favoritesobjects.txt"))
+                    {
+                        foreach (var obj in listFavoritesObjects)
+                        {
+                            writer.WriteLine(obj.ToString());
+                        }
+                    }
+                    break;
+                case DialogResult.No:
+                    break;
+                case DialogResult.Cancel:
+                    e.Cancel = true;
+                    break;
+            }
         }
     }
 }

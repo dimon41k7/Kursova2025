@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kursova.Models
 {
-    class Favorites : IEnumerable<GeoObject>
+    public class Favorites : IEnumerable<GeoObject>
     {
         private List<GeoObject> favoritesList = new List<GeoObject>();
 
@@ -19,9 +19,9 @@ namespace Kursova.Models
             }
         }
 
-        public void RemoveFavorite(GeoObject geoObject)
+        public void RemoveFavorite(int ind)
         {
-            favoritesList.Remove(geoObject);
+            favoritesList.RemoveAt(ind);
         }
 
         public List<GeoObject> ShowFavorites()

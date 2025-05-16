@@ -202,6 +202,7 @@
             Controls.Add(label1);
             Name = "AddRegionForm";
             Text = "AddRegionForm";
+            FormClosing += AddRegionForm_FormClosing;
             Load += AddRegionForm_Load;
             ResumeLayout(false);
             PerformLayout();

@@ -19,9 +19,9 @@ namespace Kursova.Models
             }
         }
 
-        public void RemoveGeoObject(GeoObject geoObject)
+        public void RemoveGeoObject(int ind)
         {
-            geoObjectList.Remove(geoObject);
+            geoObjectList.RemoveAt(ind);
         }
 
         public List<GeoObject> ShowGeoObjects()
