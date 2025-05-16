@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kursova.Models
 {
-    public class ListGeoObjects
+    public class ListGeoObjects : IEnumerable<GeoObject>
     {
         private List<GeoObject> geoObjectList = new List<GeoObject>();
 
@@ -26,6 +27,16 @@ namespace Kursova.Models
         public List<GeoObject> ShowGeoObjects()
         {
             return geoObjectList;
+        }
+
+        public IEnumerator<GeoObject> GetEnumerator()
+        {
+            return geoObjectList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

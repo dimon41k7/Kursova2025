@@ -32,6 +32,10 @@
             Додати = new Button();
             listBoxGeoObjectsAll = new ListBox();
             label1 = new Label();
+            buttonFavorites = new Button();
+            buttonSave = new Button();
+            buttonLoad = new Button();
+            listBoxFavorites = new ListBox();
             SuspendLayout();
             // 
             // listBoxGeoObjects
@@ -69,11 +73,53 @@
             label1.TabIndex = 3;
             label1.Text = "Загальний список";
             // 
+            // buttonFavorites
+            // 
+            buttonFavorites.Location = new Point(613, 174);
+            buttonFavorites.Name = "buttonFavorites";
+            buttonFavorites.Size = new Size(151, 29);
+            buttonFavorites.TabIndex = 4;
+            buttonFavorites.Text = "Додати в обране";
+            buttonFavorites.UseVisualStyleBackColor = true;
+            buttonFavorites.Click += buttonFavorites_Click;
+            // 
+            // buttonSave
+            // 
+            buttonSave.Location = new Point(613, 248);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(151, 29);
+            buttonSave.TabIndex = 5;
+            buttonSave.Text = "Зберегти";
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
+            // 
+            // buttonLoad
+            // 
+            buttonLoad.Location = new Point(613, 329);
+            buttonLoad.Name = "buttonLoad";
+            buttonLoad.Size = new Size(151, 29);
+            buttonLoad.TabIndex = 6;
+            buttonLoad.Text = "Завантажити";
+            buttonLoad.UseVisualStyleBackColor = true;
+            buttonLoad.Click += buttonLoad_Click;
+            // 
+            // listBoxFavorites
+            // 
+            listBoxFavorites.FormattingEnabled = true;
+            listBoxFavorites.Location = new Point(785, 174);
+            listBoxFavorites.Name = "listBoxFavorites";
+            listBoxFavorites.Size = new Size(533, 184);
+            listBoxFavorites.TabIndex = 7;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1182, 450);
+            ClientSize = new Size(1332, 450);
+            Controls.Add(listBoxFavorites);
+            Controls.Add(buttonLoad);
+            Controls.Add(buttonSave);
+            Controls.Add(buttonFavorites);
             Controls.Add(label1);
             Controls.Add(listBoxGeoObjectsAll);
             Controls.Add(Додати);
@@ -91,5 +137,9 @@
         private Button Додати;
         private ListBox listBoxGeoObjectsAll;
         private Label label1;
+        private Button buttonFavorites;
+        private Button buttonSave;
+        private Button buttonLoad;
+        private ListBox listBoxFavorites;
     }
 }

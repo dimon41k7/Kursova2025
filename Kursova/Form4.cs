@@ -85,6 +85,11 @@ namespace Kursova
 
             //перевіряємо площу
             string areastr = textBoxArea.Text;
+            int ind1 = areastr.IndexOf(".");
+            if (ind1 != -1)
+            {
+                areastr = (areastr.Substring(0, ind1) + "," + areastr.Substring(ind1 + 1));
+            }
             double area;
             if (!double.TryParse(areastr, out area) || area < 0 || area > 20000000)
             {
