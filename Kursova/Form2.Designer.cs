@@ -128,7 +128,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1332, 453);
             Controls.Add(ButtonBack);
             Controls.Add(Додати);
             Controls.Add(textBoxPopulation);
@@ -139,6 +139,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            MinimumSize = new Size(1350, 500);
             Name = "AddCityForm";
             Text = "AddCityForm";
             ResumeLayout(false);

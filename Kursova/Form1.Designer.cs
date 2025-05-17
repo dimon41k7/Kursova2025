@@ -40,6 +40,10 @@
             buttonDelete = new Button();
             comboBoxArea = new ComboBox();
             buttonFilter = new Button();
+            buttonEdit = new Button();
+            label2 = new Label();
+            buttonGetFact = new Button();
+            labelGetFact = new Label();
             SuspendLayout();
             // 
             // listBoxGeoObjects
@@ -80,7 +84,7 @@
             // 
             // buttonFavorites
             // 
-            buttonFavorites.Location = new Point(613, 174);
+            buttonFavorites.Location = new Point(738, 81);
             buttonFavorites.Name = "buttonFavorites";
             buttonFavorites.Size = new Size(151, 29);
             buttonFavorites.TabIndex = 4;
@@ -90,7 +94,7 @@
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(613, 248);
+            buttonSave.Location = new Point(1156, 12);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(151, 29);
             buttonSave.TabIndex = 5;
@@ -100,7 +104,7 @@
             // 
             // buttonLoad
             // 
-            buttonLoad.Location = new Point(613, 329);
+            buttonLoad.Location = new Point(1156, 54);
             buttonLoad.Name = "buttonLoad";
             buttonLoad.Size = new Size(151, 29);
             buttonLoad.TabIndex = 6;
@@ -119,7 +123,7 @@
             // 
             // buttonShowObject
             // 
-            buttonShowObject.Location = new Point(613, 120);
+            buttonShowObject.Location = new Point(614, 174);
             buttonShowObject.Name = "buttonShowObject";
             buttonShowObject.Size = new Size(151, 29);
             buttonShowObject.TabIndex = 8;
@@ -129,7 +133,7 @@
             // 
             // buttonDelete
             // 
-            buttonDelete.Location = new Point(613, 382);
+            buttonDelete.Location = new Point(562, 81);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new Size(151, 29);
             buttonDelete.TabIndex = 9;
@@ -140,7 +144,7 @@
             // comboBoxArea
             // 
             comboBoxArea.FormattingEnabled = true;
-            comboBoxArea.Location = new Point(1156, 82);
+            comboBoxArea.Location = new Point(1156, 107);
             comboBoxArea.Name = "comboBoxArea";
             comboBoxArea.Size = new Size(151, 28);
             comboBoxArea.TabIndex = 10;
@@ -148,7 +152,7 @@
             // 
             // buttonFilter
             // 
-            buttonFilter.Location = new Point(613, 67);
+            buttonFilter.Location = new Point(914, 81);
             buttonFilter.Name = "buttonFilter";
             buttonFilter.Size = new Size(151, 28);
             buttonFilter.TabIndex = 11;
@@ -156,11 +160,52 @@
             buttonFilter.UseVisualStyleBackColor = true;
             buttonFilter.Click += buttonFilter_Click;
             // 
+            // buttonEdit
+            // 
+            buttonEdit.Location = new Point(381, 83);
+            buttonEdit.Name = "buttonEdit";
+            buttonEdit.Size = new Size(151, 28);
+            buttonEdit.TabIndex = 12;
+            buttonEdit.Text = "Редагувати";
+            buttonEdit.UseVisualStyleBackColor = true;
+            buttonEdit.Click += buttonEdit_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(988, 138);
+            label2.Name = "label2";
+            label2.Size = new Size(197, 20);
+            label2.TabIndex = 13;
+            label2.Text = "Список обраних елементів";
+            // 
+            // buttonGetFact
+            // 
+            buttonGetFact.Location = new Point(62, 391);
+            buttonGetFact.Name = "buttonGetFact";
+            buttonGetFact.Size = new Size(214, 29);
+            buttonGetFact.TabIndex = 14;
+            buttonGetFact.Text = "Отримати цікавий факт";
+            buttonGetFact.UseVisualStyleBackColor = true;
+            buttonGetFact.Click += buttonGetFact_Click;
+            // 
+            // labelGetFact
+            // 
+            labelGetFact.AutoSize = true;
+            labelGetFact.Location = new Point(292, 395);
+            labelGetFact.Name = "labelGetFact";
+            labelGetFact.Size = new Size(0, 20);
+            labelGetFact.TabIndex = 15;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1332, 450);
+            ClientSize = new Size(1332, 453);
+            Controls.Add(labelGetFact);
+            Controls.Add(buttonGetFact);
+            Controls.Add(label2);
+            Controls.Add(buttonEdit);
             Controls.Add(buttonFilter);
             Controls.Add(comboBoxArea);
             Controls.Add(buttonDelete);
@@ -173,6 +218,7 @@
             Controls.Add(listBoxGeoObjectsAll);
             Controls.Add(Додати);
             Controls.Add(listBoxGeoObjects);
+            MinimumSize = new Size(1350, 500);
             Name = "MainForm";
             Text = "MainForm";
             FormClosing += MainForm_FormClosing;
@@ -195,5 +241,9 @@
         private Button buttonDelete;
         private ComboBox comboBoxArea;
         private Button buttonFilter;
+        private Button buttonEdit;
+        private Label label2;
+        private Button buttonGetFact;
+        private Label labelGetFact;
     }
 }

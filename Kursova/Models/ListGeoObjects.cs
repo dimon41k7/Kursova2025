@@ -30,7 +30,11 @@ namespace Kursova.Models
             return geoObjectList;
         }
 
-
+        public GeoObject this[int index]
+        {
+            get => geoObjectList[index];
+            set => geoObjectList[index] = value;
+        }
 
 
 

@@ -146,7 +146,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1332, 453);
             Controls.Add(textBoxLongitudeMax);
             Controls.Add(label4);
             Controls.Add(textBoxLongitudeMin);
@@ -159,6 +159,7 @@
             Controls.Add(label1);
             Controls.Add(buttonFilter);
             Controls.Add(ButtonBack);
+            MinimumSize = new Size(1350, 500);
             Name = "FormFilter";
             Text = "Form6";
             ResumeLayout(false);

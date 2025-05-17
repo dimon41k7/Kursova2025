@@ -29,7 +29,11 @@ namespace Kursova.Models
             return favoritesList;
         }
 
-
+        public GeoObject this[int index]
+        {
+            get => favoritesList[index];
+            set => favoritesList[index] = value;
+        }
 
 
 

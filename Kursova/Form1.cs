@@ -57,36 +57,6 @@ namespace Kursova
             }
         }
 
-        //public void RefreshList()
-        //{
-        //    listBoxGeoObjectsAll.Items.Clear();
-        //    foreach (var item in listGeoObjects.ShowGeoObjects())
-        //    {
-        //        listBoxGeoObjectsAll.Items.Add(item.ToString());
-        //    }
-
-        //    listBoxFavorites.Items.Clear();
-        //    foreach (var item in listFavoritesObjects.ShowFavorites())
-        //    {
-        //        listBoxFavorites.Items.Add(item.ToString());
-        //    }
-        //}
-
-        //public void RefreshListInMile()
-        //{
-        //    listBoxGeoObjectsAll.Items.Clear();
-        //    foreach (var item in listGeoObjects.ShowGeoObjects())
-        //    {
-        //        listBoxGeoObjectsAll.Items.Add(item.ToStringInMile());
-        //    }
-
-        //    listBoxFavorites.Items.Clear();
-        //    foreach (var item in listFavoritesObjects.ShowFavorites())
-        //    {
-        //        listBoxFavorites.Items.Add(item.ToStringInMile());
-        //    }
-        //}
-
         private void buttonFavorites_Click(object sender, EventArgs e)
         {
             var selectedItem = listBoxGeoObjectsAll.SelectedItem;
@@ -121,7 +91,7 @@ namespace Kursova
             listGeoObjects.LoadData();
             listFavoritesObjects.LoadData();
             string selected = comboBoxArea.SelectedItem.ToString();
-            if(selected== "Милі")
+            if (selected == "Милі")
             {
                 listGeoObjects.RefreshListInMile(listBoxGeoObjectsAll);
                 listFavoritesObjects.RefreshListInMile(listBoxFavorites);
@@ -131,7 +101,7 @@ namespace Kursova
                 listGeoObjects.RefreshList(listBoxGeoObjectsAll);
                 listFavoritesObjects.RefreshList(listBoxFavorites);
             }
-                
+
         }
 
         private void buttonShowObject_Click(object sender, EventArgs e)
@@ -292,6 +262,85 @@ namespace Kursova
             FormFilter filterForm = new FormFilter(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this);
             this.Hide();
             filterForm.Show();
+        }
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            if (listBoxGeoObjectsAll.SelectedItem == null && listBoxFavorites.SelectedItem == null)
+            {
+                MessageBox.Show("Оберіть, який елемент ви хочете відредагувати");
+                return;
+            }
+            else if (listBoxGeoObjectsAll.SelectedItem != null && listBoxFavorites.SelectedItem == null)
+            {
+                int ind = listBoxGeoObjectsAll.SelectedIndex;
+
+                string line = Convert.ToString(listBoxGeoObjectsAll.SelectedItem);
+                if (line.StartsWith("Місто|"))
+                {
+                    FormCityEdit editForm = new FormCityEdit(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, ind, true, this);
+                    this.Hide();
+                    editForm.Show();
+                }
+                else if (line.StartsWith("Регіон|"))
+                {
+                    FormRegionEdit editForm = new FormRegionEdit(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, ind, true, this);
+                    this.Hide();
+                    editForm.Show();
+                }
+                else if (line.StartsWith("Країна|"))
+                {
+                    FormCountryEdit editForm = new FormCountryEdit(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, ind, true, this);
+                    this.Hide();
+                    editForm.Show();
+                }
+                else if (line.StartsWith("Континент|"))
+                {
+                    FormContinentEdit editForm = new FormContinentEdit(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, ind, true, this);
+                    this.Hide();
+                    editForm.Show();
+                }
+            }
+            else if (listBoxGeoObjectsAll.SelectedItem == null && listBoxFavorites.SelectedItem != null)
+            {
+                int ind = listBoxFavorites.SelectedIndex;
+
+                string line = Convert.ToString(listBoxFavorites.SelectedItem);
+                if (line.StartsWith("Місто|"))
+                {
+                    FormCityEdit editForm = new FormCityEdit(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, ind, false, this);
+                    this.Hide();
+                    editForm.Show();
+                }
+                else if (line.StartsWith("Регіон|"))
+                {
+                    FormRegionEdit editForm = new FormRegionEdit(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, ind, false, this);
+                    this.Hide();
+                    editForm.Show();
+                }
+                else if (line.StartsWith("Країна|"))
+                {
+                    FormCountryEdit editForm = new FormCountryEdit(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, ind, false, this);
+                    this.Hide();
+                    editForm.Show();
+                }
+                else if (line.StartsWith("Континент|"))
+                {
+                    FormContinentEdit editForm = new FormContinentEdit(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, ind, false, this);
+                    this.Hide();
+                    editForm.Show();
+                }
+            }
+            else if (listBoxGeoObjectsAll.SelectedItem != null && listBoxFavorites.SelectedItem != null)
+            {
+                MessageBox.Show("Оберіть лише один елемент, який ви хочете відредагувати");
+                return;
+            }
+        }
+
+        private void buttonGetFact_Click(object sender, EventArgs e)
+        {
+            labelGetFact.Text = GeoObject.InterestingFact();
         }
 
         public string SelectedMorKm

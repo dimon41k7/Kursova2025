@@ -183,7 +183,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1182, 450);
+            ClientSize = new Size(1332, 453);
             Controls.Add(ButtonBack);
             Controls.Add(label7);
             Controls.Add(listBoxType);
@@ -200,6 +200,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            MinimumSize = new Size(1350, 500);
             Name = "AddRegionForm";
             Text = "AddRegionForm";
             Load += AddRegionForm_Load;
