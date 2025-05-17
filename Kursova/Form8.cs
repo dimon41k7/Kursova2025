@@ -30,7 +30,6 @@ namespace Kursova
             boollistall = ifitislistall;
             this.mainForm = mainForm;
             InitializeComponent();
-            InitializeComponent();
         }
 
         private void ButtonBack_Click(object sender, EventArgs e)
