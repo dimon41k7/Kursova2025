@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -86,6 +87,20 @@ namespace Kursova.Models
                         else if (line.StartsWith("Континент|"))
                             this.AddGeoObject(Continent.FromString(line));
                     }
+                }
+            }
+        }
+
+        public void Filter(ListGeoObjects list, string name, double minlatdouble, double maxlatdouble, double minlondouble, double maxlondouble)
+        {
+            foreach (var item in list)
+            {
+                string strname = item.Name;
+                double latitude = item.Coordinates.Latitude;
+                double longitude = item.Coordinates.Longitude;
+                if (strname.IndexOf(name) > -1&&(latitude>=minlatdouble&&latitude<=maxlatdouble) && (longitude >= minlondouble && longitude <= maxlondouble))
+                {
+                    this.AddGeoObject(item);
                 }
             }
         }

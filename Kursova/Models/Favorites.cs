@@ -114,6 +114,20 @@ namespace Kursova.Models
             }
         }
 
+        public void Filter(Favorites list, string name, double minlatdouble, double maxlatdouble, double minlondouble, double maxlondouble)
+        {
+            foreach (var item in list)
+            {
+                string strname = item.Name;
+                double latitude = item.Coordinates.Latitude;
+                double longitude = item.Coordinates.Longitude;
+                if (strname.IndexOf(name) > -1 && (latitude >= minlatdouble && latitude <= maxlatdouble) && (longitude >= minlondouble && longitude <= maxlondouble))
+                {
+                    this.AddFavorite(item);
+                }
+            }
+        }
+
 
 
 
