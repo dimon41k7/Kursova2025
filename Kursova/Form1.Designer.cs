@@ -39,6 +39,7 @@
             buttonShowObject = new Button();
             buttonDelete = new Button();
             comboBoxArea = new ComboBox();
+            buttonFilter = new Button();
             SuspendLayout();
             // 
             // listBoxGeoObjects
@@ -145,11 +146,22 @@
             comboBoxArea.TabIndex = 10;
             comboBoxArea.SelectedIndexChanged += comboBoxArea_SelectedIndexChanged;
             // 
+            // buttonFilter
+            // 
+            buttonFilter.Location = new Point(613, 67);
+            buttonFilter.Name = "buttonFilter";
+            buttonFilter.Size = new Size(151, 28);
+            buttonFilter.TabIndex = 11;
+            buttonFilter.Text = "Фільтри";
+            buttonFilter.UseVisualStyleBackColor = true;
+            buttonFilter.Click += buttonFilter_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 450);
+            Controls.Add(buttonFilter);
             Controls.Add(comboBoxArea);
             Controls.Add(buttonDelete);
             Controls.Add(buttonShowObject);
@@ -182,5 +194,6 @@
         private Button buttonShowObject;
         private Button buttonDelete;
         private ComboBox comboBoxArea;
+        private Button buttonFilter;
     }
 }

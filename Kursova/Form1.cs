@@ -29,25 +29,25 @@ namespace Kursova
             var selectedItem = listBoxGeoObjects.SelectedItem;
             if (selectedItem == "Місто")
             {
-                AddCityForm addForm = new AddCityForm(listGeoObjects, listFavoritesObjects, this);
+                AddCityForm addForm = new AddCityForm(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this);
                 this.Hide();
                 addForm.Show();
             }
             else if (selectedItem == "Регіон")
             {
-                AddRegionForm addForm = new AddRegionForm(listGeoObjects, listFavoritesObjects, this);
+                AddRegionForm addForm = new AddRegionForm(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this);
                 this.Hide();
                 addForm.Show();
             }
             else if (selectedItem == "Країна")
             {
-                AddCountryForm addForm = new AddCountryForm(listGeoObjects, listFavoritesObjects, this);
+                AddCountryForm addForm = new AddCountryForm(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this);
                 this.Hide();
                 addForm.Show();
             }
             else if (selectedItem == "Континент")
             {
-                AddContinentForm addForm = new AddContinentForm(listGeoObjects, listFavoritesObjects, this);
+                AddContinentForm addForm = new AddContinentForm(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this);
                 this.Hide();
                 addForm.Show();
             }
@@ -57,35 +57,35 @@ namespace Kursova
             }
         }
 
-        public void RefreshList()
-        {
-            listBoxGeoObjectsAll.Items.Clear();
-            foreach (var item in listGeoObjects.ShowGeoObjects())
-            {
-                listBoxGeoObjectsAll.Items.Add(item.ToString());
-            }
+        //public void RefreshList()
+        //{
+        //    listBoxGeoObjectsAll.Items.Clear();
+        //    foreach (var item in listGeoObjects.ShowGeoObjects())
+        //    {
+        //        listBoxGeoObjectsAll.Items.Add(item.ToString());
+        //    }
 
-            listBoxFavorites.Items.Clear();
-            foreach (var item in listFavoritesObjects.ShowFavorites())
-            {
-                listBoxFavorites.Items.Add(item.ToString());
-            }
-        }
+        //    listBoxFavorites.Items.Clear();
+        //    foreach (var item in listFavoritesObjects.ShowFavorites())
+        //    {
+        //        listBoxFavorites.Items.Add(item.ToString());
+        //    }
+        //}
 
-        public void RefreshListInMile()
-        {
-            listBoxGeoObjectsAll.Items.Clear();
-            foreach (var item in listGeoObjects.ShowGeoObjects())
-            {
-                listBoxGeoObjectsAll.Items.Add(item.ToStringInMile());
-            }
+        //public void RefreshListInMile()
+        //{
+        //    listBoxGeoObjectsAll.Items.Clear();
+        //    foreach (var item in listGeoObjects.ShowGeoObjects())
+        //    {
+        //        listBoxGeoObjectsAll.Items.Add(item.ToStringInMile());
+        //    }
 
-            listBoxFavorites.Items.Clear();
-            foreach (var item in listFavoritesObjects.ShowFavorites())
-            {
-                listBoxFavorites.Items.Add(item.ToStringInMile());
-            }
-        }
+        //    listBoxFavorites.Items.Clear();
+        //    foreach (var item in listFavoritesObjects.ShowFavorites())
+        //    {
+        //        listBoxFavorites.Items.Add(item.ToStringInMile());
+        //    }
+        //}
 
         private void buttonFavorites_Click(object sender, EventArgs e)
         {
@@ -97,110 +97,31 @@ namespace Kursova
             }
             string selected = comboBoxArea.SelectedItem.ToString();
             string line = selectedItem.ToString();
-            if (line.StartsWith("Місто|"))
-                listFavoritesObjects.AddFavorite(City.FromString(line));
-            else if (line.StartsWith("Регіон|"))
-                listFavoritesObjects.AddFavorite(GeoRegion.FromString(line));
-            else if (line.StartsWith("Країна|"))
-            {
-                var obj = Country.FromString(line);
-                if (selected == "Милі")
-                {
-                    obj.Area = obj.Area * 1.60934;
-                }
-                listFavoritesObjects.AddFavorite(obj);
-            }
-                
-            else if (line.StartsWith("Континент|"))
-            {
-                var obj = Continent.FromString(line);
-                if (selected == "Милі")
-                {
-                    obj.Area = obj.Area * 1.60934;
-                }
-                listFavoritesObjects.AddFavorite(Continent.FromString(line));
-            } 
+
+            listFavoritesObjects.AddToFavorites(line, selected);
+
             if (selected == "Милі")
             {
-                RefreshListInMile();
+                listFavoritesObjects.RefreshListInMile(listBoxFavorites);
             }
             else if (selected == "Кілометри")
             {
-                RefreshList();
+                listFavoritesObjects.RefreshList(listBoxFavorites);
             }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            using (StreamWriter writer = new("objects.txt"))
-            {
-                foreach (var obj in listGeoObjects)
-                {
-                    writer.WriteLine(obj.ToString());
-                }
-            }
-
-            using (StreamWriter writer = new("favoritesobjects.txt"))
-            {
-                foreach (var obj in listFavoritesObjects)
-                {
-                    writer.WriteLine(obj.ToString());
-                }
-            }
+            listGeoObjects.SaveData("objects.txt");
+            listFavoritesObjects.SaveData("favoritesobjects.txt");
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            if (!File.Exists("objects.txt") || !File.Exists("favoritesobjects.txt"))
-            {
-                return;
-            }
-
-            using (StreamReader reader = new("objects.txt"))
-            {
-                string? line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    {
-                        if (line.StartsWith("Місто|"))
-                            listGeoObjects.AddGeoObject(City.FromString(line));
-                        else if (line.StartsWith("Регіон|"))
-                            listGeoObjects.AddGeoObject(GeoRegion.FromString(line));
-                        else if (line.StartsWith("Країна|"))
-                            listGeoObjects.AddGeoObject(Country.FromString(line));
-                        else if (line.StartsWith("Континент|"))
-                            listGeoObjects.AddGeoObject(Continent.FromString(line));
-                    }
-                }
-            }
-            using (StreamReader reader = new("favoritesobjects.txt"))
-            {
-                string? line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    {
-                        if (line.StartsWith("Місто|"))
-                            listFavoritesObjects.AddFavorite(City.FromString(line));
-                        else if (line.StartsWith("Регіон|"))
-                            listFavoritesObjects.AddFavorite(GeoRegion.FromString(line));
-                        else if (line.StartsWith("Країна|"))
-                            listFavoritesObjects.AddFavorite(Country.FromString(line));
-                        else if (line.StartsWith("Континент|"))
-                            listFavoritesObjects.AddFavorite(Continent.FromString(line));
-                    }
-                }
-
-            }
-            string selected = comboBoxArea.SelectedItem.ToString();
-
-            if (selected == "Милі")
-            {
-                RefreshListInMile();
-            }
-            else if (selected == "Кілометри")
-            {
-                RefreshList();
-            }
+            listGeoObjects.LoadData();
+            listFavoritesObjects.LoadData();
+            listGeoObjects.RefreshList(listBoxGeoObjectsAll);
+            listFavoritesObjects.RefreshList(listBoxFavorites);
         }
 
         private void buttonShowObject_Click(object sender, EventArgs e)
@@ -225,66 +146,7 @@ namespace Kursova
                 return;
             }
             string[] arrword = selectedItem.ToString().Split('|');
-            string latitude = arrword[2];
-            int ind = latitude.IndexOf(".");
-            if (ind != -1)
-            {
-                latitude = latitude.Substring(0, ind) + "," + latitude.Substring(ind + 1);
-            }
-            int firstind = latitude.IndexOf(",");
-            string longitude = arrword[3];
-            ind = longitude.IndexOf(".");
-            if (ind != -1)
-            {
-                longitude = longitude.Substring(0, ind) + "," + longitude.Substring(ind + 1);
-            }
-            int secondind = longitude.IndexOf(",");
-            if (firstind != -1 && secondind != -1)
-            {
-                string firstpartlatitude = latitude.Substring(0, firstind);
-                string secondpartlatitude = latitude.Substring(firstind + 1);
-                string firstpartlongitude = longitude.Substring(0, secondind);
-                string secondpartlongitude = longitude.Substring(secondind + 1);
-
-
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = $"https://www.google.com/maps?q={Convert.ToInt32(firstpartlatitude)}.{Convert.ToInt32(secondpartlatitude)},{Convert.ToInt32(firstpartlongitude)}.{Convert.ToInt32(secondpartlongitude)}",
-                    UseShellExecute = true
-                });
-            }
-            else if (firstind != -1 && secondind == -1)
-            {
-                string firstpartlatitude = latitude.Substring(0, firstind);
-                string secondpartlatitude = latitude.Substring(firstind + 1);
-
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = $"https://www.google.com/maps?q={Convert.ToInt32(firstpartlatitude)}.{Convert.ToInt32(secondpartlatitude)},{Convert.ToInt32(longitude)}.0",
-                    UseShellExecute = true
-                });
-            }
-            else if (firstind == -1 && secondind != -1)
-            {
-                string firstpartlongitude = longitude.Substring(0, secondind);
-                string secondpartlongitude = longitude.Substring(secondind + 1);
-
-
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = $"https://www.google.com/maps?q={Convert.ToInt32(latitude)}.0,{Convert.ToInt32(firstpartlongitude)}.{Convert.ToInt32(secondpartlongitude)}",
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = $"https://www.google.com/maps?q={Convert.ToInt32(latitude)}.0,{Convert.ToInt32(longitude)}.0",
-                    UseShellExecute = true
-                });
-            }
+            GeoObject.ShowInMap(arrword);
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -306,11 +168,11 @@ namespace Kursova
 
                         if (selected == "Милі")
                         {
-                            RefreshListInMile();
+                            listGeoObjects.RefreshListInMile(listBoxGeoObjectsAll);
                         }
                         else if (selected == "Кілометри")
                         {
-                            RefreshList();
+                            listGeoObjects.RefreshList(listBoxGeoObjectsAll);
                         }
                         break;
                     case DialogResult.No:
@@ -328,11 +190,11 @@ namespace Kursova
 
                         if (selected == "Милі")
                         {
-                            RefreshListInMile();
+                            listFavoritesObjects.RefreshListInMile(listBoxFavorites);
                         }
                         else if (selected == "Кілометри")
                         {
-                            RefreshList();
+                            listFavoritesObjects.RefreshList(listBoxFavorites);
                         }
                         break;
                     case DialogResult.No:
@@ -388,21 +250,8 @@ namespace Kursova
             switch (result)
             {
                 case DialogResult.Yes:
-                    using (StreamWriter writer = new("objects.txt"))
-                    {
-                        foreach (var obj in listGeoObjects)
-                        {
-                            writer.WriteLine(obj.ToString());
-                        }
-                    }
-
-                    using (StreamWriter writer = new("favoritesobjects.txt"))
-                    {
-                        foreach (var obj in listFavoritesObjects)
-                        {
-                            writer.WriteLine(obj.ToString());
-                        }
-                    }
+                    listGeoObjects.SaveData("objects.txt");
+                    listFavoritesObjects.SaveData("favoritesobjects.txt");
                     break;
                 case DialogResult.No:
                     break;
@@ -418,12 +267,19 @@ namespace Kursova
 
             if (selected == "Милі")
             {
-                RefreshListInMile();
+                listGeoObjects.RefreshListInMile(listBoxGeoObjectsAll);
+                listFavoritesObjects.RefreshListInMile(listBoxFavorites);
             }
             else if (selected == "Кілометри")
             {
-                RefreshList();
+                listGeoObjects.RefreshList(listBoxGeoObjectsAll);
+                listFavoritesObjects.RefreshList(listBoxFavorites);
             }
+        }
+
+        private void buttonFilter_Click(object sender, EventArgs e)
+        {
+
         }
 
         public string SelectedMorKm

@@ -15,12 +15,16 @@ namespace Kursova
     {
         private ListGeoObjects listGeoObjects;
         private Favorites listFavoritesObjects = new Favorites();
+        private ListBox listBoxGeoObjectsAll;
+        private ListBox listBoxFavorites;
         private Form mainForm;
 
-        public AddContinentForm(ListGeoObjects list, Favorites listf, Form mainForm)
+        public AddContinentForm(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, Form mainForm)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;
+            listBoxGeoObjectsAll = listBox;
+            listBoxFavorites = listBox1;
             this.mainForm = mainForm;
             InitializeComponent();
         }
@@ -106,9 +110,15 @@ namespace Kursova
                 string selected = main.SelectedMorKm;
 
                 if (selected == "Милі")
-                    main.RefreshListInMile();
+                {
+                    listGeoObjects.RefreshListInMile(listBoxGeoObjectsAll);
+                    listFavoritesObjects.RefreshListInMile(listBoxFavorites);
+                }
                 else
-                    main.RefreshList();
+                {
+                    listGeoObjects.RefreshList(listBoxGeoObjectsAll);
+                    listFavoritesObjects.RefreshList(listBoxFavorites);
+                }
             }
             //((MainForm)mainForm).RefreshList();
             mainForm.Show();

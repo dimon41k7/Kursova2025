@@ -29,6 +29,95 @@ namespace Kursova.Models
             return favoritesList;
         }
 
+
+
+
+
+        public void RefreshList(ListBox list)
+        {
+            list.Items.Clear();
+            foreach (var item in this)
+            {
+                list.Items.Add(item.ToString());
+            }
+        }
+
+        public void RefreshListInMile(ListBox list)
+        {
+            list.Items.Clear();
+            foreach (var item in this)
+            {
+                list.Items.Add(item.ToStringInMile());
+            }
+        }
+
+        public void SaveData(string path)
+        {
+            using (StreamWriter writer = new(path))
+            {
+                foreach (var obj in this)
+                {
+                    writer.WriteLine(obj.ToString());
+                }
+            }
+        }
+
+        public void LoadData()
+        {
+            if (!File.Exists("favoritesobjects.txt"))
+            {
+                return;
+            }
+
+            using (StreamReader reader = new("favoritesobjects.txt"))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    {
+                        if (line.StartsWith("Місто|"))
+                            this.AddFavorite(City.FromString(line));
+                        else if (line.StartsWith("Регіон|"))
+                            this.AddFavorite(GeoRegion.FromString(line));
+                        else if (line.StartsWith("Країна|"))
+                            this.AddFavorite(Country.FromString(line));
+                        else if (line.StartsWith("Континент|"))
+                            this.AddFavorite(Continent.FromString(line));
+                    }
+                }
+            }
+        }
+        public void AddToFavorites(string line, string selected = "Кілометри")
+        {
+            if (line.StartsWith("Місто|"))
+                this.AddFavorite(City.FromString(line));
+            else if (line.StartsWith("Регіон|"))
+                this.AddFavorite(GeoRegion.FromString(line));
+            else if (line.StartsWith("Країна|"))
+            {
+                var obj = Country.FromString(line);
+                if (selected == "Милі")
+                {
+                    obj.Area = obj.Area * 1.60934;
+                }
+                this.AddFavorite(obj);
+            }
+
+            else if (line.StartsWith("Континент|"))
+            {
+                var obj = Continent.FromString(line);
+                if (selected == "Милі")
+                {
+                    obj.Area = obj.Area * 1.60934;
+                }
+                this.AddFavorite(obj);
+            }
+        }
+
+
+
+
+
         public IEnumerator<GeoObject> GetEnumerator()
         {
             return favoritesList.GetEnumerator();

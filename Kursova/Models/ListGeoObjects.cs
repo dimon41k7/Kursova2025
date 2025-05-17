@@ -29,6 +29,72 @@ namespace Kursova.Models
             return geoObjectList;
         }
 
+
+
+
+
+
+
+        public void RefreshList(ListBox list)
+        {
+            list.Items.Clear();
+            foreach (var item in this)
+            {
+                list.Items.Add(item.ToString());
+            }
+        }
+
+        public void RefreshListInMile(ListBox list)
+        {
+            list.Items.Clear();
+            foreach (var item in this)
+            {
+                list.Items.Add(item.ToStringInMile());
+            }
+        }
+
+        public void SaveData(string path)
+        {
+            using (StreamWriter writer = new(path))
+            {
+                foreach (var obj in this)
+                {
+                    writer.WriteLine(obj.ToString());
+                }
+            }
+        }
+
+        public void LoadData()
+        {
+            if (!File.Exists("objects.txt"))
+            {
+                return;
+            }
+
+            using (StreamReader reader = new("objects.txt"))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    {
+                        if (line.StartsWith("Місто|"))
+                            this.AddGeoObject(City.FromString(line));
+                        else if (line.StartsWith("Регіон|"))
+                            this.AddGeoObject(GeoRegion.FromString(line));
+                        else if (line.StartsWith("Країна|"))
+                            this.AddGeoObject(Country.FromString(line));
+                        else if (line.StartsWith("Континент|"))
+                            this.AddGeoObject(Continent.FromString(line));
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
         public IEnumerator<GeoObject> GetEnumerator()
         {
             return geoObjectList.GetEnumerator();
