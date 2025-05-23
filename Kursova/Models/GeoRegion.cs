@@ -23,12 +23,12 @@ namespace Kursova.Models
 
         public override string ToString()
         {
-            return $"Регіон|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Type}|{Country}|{Capital}|{Population}";
+            return $"Регіон|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Type}|{Capital}|{Population}|{Country}";
         }
 
         public override string ToStringInMile()
         {
-            return $"Регіон|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Type}|{Country}|{Capital}|{Population}";
+            return $"Регіон|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Type}|{Capital}|{Population}|{Country}";
         }
 
         public static new GeoRegion FromString(string line)
@@ -39,9 +39,9 @@ namespace Kursova.Models
                 (double.Parse(arr[2]),
                 double.Parse(arr[3])),
                 Convert.ToString(arr[4]),
+                Convert.ToString(arr[7]),
                 Convert.ToString(arr[5]),
-                Convert.ToString(arr[6]),
-                Convert.ToInt32(arr[7])
+                Convert.ToInt32(arr[6])
             );
         }
     }

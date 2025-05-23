@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using Kursova.Models;
 
 namespace Kursova
@@ -221,6 +222,19 @@ namespace Kursova
             {
                 listBoxFavorites.SelectedIndex = index;
                 lastClickedIndexFavorites = index;
+            }
+        }
+
+
+        private void listBoxGeoObjectsAll_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBoxGeoObjectsAll.SelectedItem != null)
+            {
+                ListGeoObjects listShow = new ListGeoObjects();
+                listShow.SearchObj(listBoxGeoObjectsAll.SelectedIndex, listGeoObjects);
+                FormShowObj filterForm = new FormShowObj(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this, listShow);
+                this.Hide();
+                filterForm.Show();
             }
         }
 

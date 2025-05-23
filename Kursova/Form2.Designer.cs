@@ -38,6 +38,8 @@
             textBoxPopulation = new TextBox();
             Додати = new Button();
             ButtonBack = new Button();
+            textBoxRegion = new TextBox();
+            label5 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -106,7 +108,7 @@
             // 
             // Додати
             // 
-            Додати.Location = new Point(385, 163);
+            Додати.Location = new Point(380, 186);
             Додати.Name = "Додати";
             Додати.Size = new Size(94, 29);
             Додати.TabIndex = 8;
@@ -124,11 +126,29 @@
             ButtonBack.UseVisualStyleBackColor = true;
             ButtonBack.Click += ButtonBack_Click;
             // 
+            // textBoxRegion
+            // 
+            textBoxRegion.Location = new Point(226, 289);
+            textBoxRegion.Name = "textBoxRegion";
+            textBoxRegion.Size = new Size(110, 27);
+            textBoxRegion.TabIndex = 11;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(86, 292);
+            label5.Name = "label5";
+            label5.Size = new Size(134, 20);
+            label5.TabIndex = 10;
+            label5.Text = "Належить регіону";
+            // 
             // AddCityForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 453);
+            Controls.Add(textBoxRegion);
+            Controls.Add(label5);
             Controls.Add(ButtonBack);
             Controls.Add(Додати);
             Controls.Add(textBoxPopulation);
@@ -158,5 +178,7 @@
         private TextBox textBoxPopulation;
         private Button Додати;
         private Button ButtonBack;
+        private TextBox textBoxRegion;
+        private Label label5;
     }
 }

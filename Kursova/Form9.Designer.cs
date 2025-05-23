@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             ButtonBack = new Button();
-            label7 = new Label();
-            listBoxGovernmentType = new ListBox();
             textBoxPopulation = new TextBox();
             textBoxArea = new TextBox();
             textBoxCapital = new TextBox();
@@ -44,6 +42,10 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            textBoxContinent = new TextBox();
+            label8 = new Label();
+            label7 = new Label();
+            listBoxGovernmentType = new ListBox();
             SuspendLayout();
             // 
             // ButtonBack
@@ -55,23 +57,6 @@
             ButtonBack.Text = "Назад";
             ButtonBack.UseVisualStyleBackColor = true;
             ButtonBack.Click += ButtonBack_Click;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(627, 133);
-            label7.Name = "label7";
-            label7.Size = new Size(150, 40);
-            label7.TabIndex = 56;
-            label7.Text = "Форма державного \r\nправління";
-            // 
-            // listBoxGovernmentType
-            // 
-            listBoxGovernmentType.FormattingEnabled = true;
-            listBoxGovernmentType.Location = new Point(783, 79);
-            listBoxGovernmentType.Name = "listBoxGovernmentType";
-            listBoxGovernmentType.Size = new Size(216, 124);
-            listBoxGovernmentType.TabIndex = 55;
             // 
             // textBoxPopulation
             // 
@@ -179,14 +164,49 @@
             label1.TabIndex = 42;
             label1.Text = "Назва країни";
             // 
+            // textBoxContinent
+            // 
+            textBoxContinent.Location = new Point(780, 177);
+            textBoxContinent.Name = "textBoxContinent";
+            textBoxContinent.Size = new Size(110, 27);
+            textBoxContinent.TabIndex = 61;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(613, 184);
+            label8.Name = "label8";
+            label8.Size = new Size(152, 20);
+            label8.TabIndex = 60;
+            label8.Text = "Належить континету";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(613, 98);
+            label7.Name = "label7";
+            label7.Size = new Size(150, 40);
+            label7.TabIndex = 59;
+            label7.Text = "Форма державного \r\nправління";
+            // 
+            // listBoxGovernmentType
+            // 
+            listBoxGovernmentType.FormattingEnabled = true;
+            listBoxGovernmentType.Location = new Point(780, 59);
+            listBoxGovernmentType.Name = "listBoxGovernmentType";
+            listBoxGovernmentType.Size = new Size(216, 104);
+            listBoxGovernmentType.TabIndex = 58;
+            // 
             // FormCountryEdit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 453);
-            Controls.Add(ButtonBack);
+            Controls.Add(textBoxContinent);
+            Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(listBoxGovernmentType);
+            Controls.Add(ButtonBack);
             Controls.Add(textBoxPopulation);
             Controls.Add(textBoxArea);
             Controls.Add(textBoxCapital);
@@ -211,8 +231,6 @@
         #endregion
 
         private Button ButtonBack;
-        private Label label7;
-        private ListBox listBoxGovernmentType;
         private TextBox textBoxPopulation;
         private TextBox textBoxArea;
         private TextBox textBoxCapital;
@@ -226,5 +244,9 @@
         private Label label3;
         private Label label2;
         private Label label1;
+        private TextBox textBoxContinent;
+        private Label label8;
+        private Label label7;
+        private ListBox listBoxGovernmentType;
     }
 }

@@ -44,12 +44,14 @@
             label2 = new Label();
             label1 = new Label();
             ButtonBack = new Button();
+            textBoxContinent = new TextBox();
+            label8 = new Label();
             SuspendLayout();
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(627, 133);
+            label7.Location = new Point(616, 98);
             label7.Name = "label7";
             label7.Size = new Size(150, 40);
             label7.TabIndex = 40;
@@ -58,9 +60,9 @@
             // listBoxGovernmentType
             // 
             listBoxGovernmentType.FormattingEnabled = true;
-            listBoxGovernmentType.Location = new Point(783, 79);
+            listBoxGovernmentType.Location = new Point(783, 59);
             listBoxGovernmentType.Name = "listBoxGovernmentType";
-            listBoxGovernmentType.Size = new Size(216, 124);
+            listBoxGovernmentType.Size = new Size(216, 104);
             listBoxGovernmentType.TabIndex = 39;
             // 
             // textBoxPopulation
@@ -179,11 +181,29 @@
             ButtonBack.UseVisualStyleBackColor = true;
             ButtonBack.Click += ButtonBack_Click;
             // 
+            // textBoxContinent
+            // 
+            textBoxContinent.Location = new Point(783, 177);
+            textBoxContinent.Name = "textBoxContinent";
+            textBoxContinent.Size = new Size(110, 27);
+            textBoxContinent.TabIndex = 43;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(616, 184);
+            label8.Name = "label8";
+            label8.Size = new Size(152, 20);
+            label8.TabIndex = 42;
+            label8.Text = "Належить континету";
+            // 
             // AddCountryForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 453);
+            Controls.Add(textBoxContinent);
+            Controls.Add(label8);
             Controls.Add(ButtonBack);
             Controls.Add(label7);
             Controls.Add(listBoxGovernmentType);
@@ -226,5 +246,7 @@
         private Label label2;
         private Label label1;
         private Button ButtonBack;
+        private TextBox textBoxContinent;
+        private Label label8;
     }
 }

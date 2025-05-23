@@ -83,7 +83,22 @@ namespace Kursova
                 return;
             }
 
-            var city = new City(name, (double.Parse(latitude), double.Parse(longitude)), population);
+
+            //перевіряємо якому регіону належить
+            string region = textBoxRegion.Text.Replace(" ", ""); ;
+            if (!region.All(char.IsLetter))
+            {
+                MessageBox.Show("Назва регіону, якому належить місто, повинна містити тільки літери.");
+                return;
+            }
+            if (region.Length == 0 || region.Length >= 100)
+            {
+                MessageBox.Show("Некоректна назва регіону, якому належить місто! Введіть назву від 1 символу до 100 символів");
+                return;
+            }
+            region = textBoxRegion.Text;
+
+            var city = new City(name, (double.Parse(latitude), double.Parse(longitude)), population, region);
             listGeoObjects.AddGeoObject(city);
             MessageBox.Show("Місто успішно додалося!");
         }

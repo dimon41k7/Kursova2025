@@ -135,7 +135,21 @@ namespace Kursova
                 return;
             }
 
-            var country = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+            //перевіряємо назву континенту, якому належить країна
+            string continent = textBoxContinent.Text.Replace(" ", "");
+            if (!continent.All(char.IsLetter))
+            {
+                MessageBox.Show("Назва континенту, якому належить країна, повинна містити тільки літери.");
+                return;
+            }
+            if (continent.Length == 0 || continent.Length >= 100)
+            {
+                MessageBox.Show("Некоректна назва континенту, якому належить країна! Введіть назву від 1 символу до 100 символів");
+                return;
+            }
+            continent = textBoxContinent.Text;
+
+            var country = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital, continent);
             listGeoObjects.AddGeoObject(country);
 
             MessageBox.Show("Країна успішно додалася!");

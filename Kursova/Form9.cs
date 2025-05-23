@@ -156,10 +156,25 @@ namespace Kursova
                 return;
             }
 
+
+            //перевіряємо назву континенту, якому належить країна
+            string continent = textBoxContinent.Text.Replace(" ", "");
+            if (!continent.All(char.IsLetter))
+            {
+                MessageBox.Show("Назва континенту, якому належить країна, повинна містити тільки літери.");
+                return;
+            }
+            if (continent.Length == 0 || continent.Length >= 100)
+            {
+                MessageBox.Show("Некоректна назва континенту, якому належить країна! Введіть назву від 1 символу до 100 символів");
+                return;
+            }
+            continent = textBoxContinent.Text;
+
             if (boollistall == true)
             {
 
-                listGeoObjects[indelem] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+                listGeoObjects[indelem] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital, continent);
                 for (int i = 0; i < listFavoritesObjects.Count; i++)
                 {
                     if (listFavoritesObjects[i] is Country currentCountry &&
@@ -169,16 +184,17 @@ namespace Kursova
                     currentCountry.Area == obj.Area &&
                     currentCountry.Capital == obj.Capital &&
                     currentCountry.Population == obj.Population &&
-                    currentCountry.GovernmentType == obj.GovernmentType)
+                    currentCountry.GovernmentType == obj.GovernmentType&&
+                    currentCountry.Continent==obj.Continent)
                     {
-                        listFavoritesObjects[i] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+                        listFavoritesObjects[i] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital, continent);
                         break;
                     }
                 }
             }
             else
             {
-                listFavoritesObjects[indelem] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+                listFavoritesObjects[indelem] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital, continent);
                 for (int i = 0; i < listGeoObjects.Count; i++)
                 {
                     if (listGeoObjects[i] is Country currentCountry &&
@@ -188,9 +204,10 @@ namespace Kursova
                     currentCountry.Area == obj.Area &&
                     currentCountry.Capital == obj.Capital &&
                     currentCountry.Population == obj.Population &&
-                    currentCountry.GovernmentType == obj.GovernmentType)
+                    currentCountry.GovernmentType == obj.GovernmentType&&
+                    currentCountry.Continent == obj.Continent)
                     {
-                        listGeoObjects[i] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+                        listGeoObjects[i] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital, continent);
                         break;
                     }
                 }
@@ -247,6 +264,7 @@ namespace Kursova
             listBoxGovernmentType.Items.Add("Воєнна диктатура");
             listBoxGovernmentType.Items.Add("Однопартійна система");
             listBoxGovernmentType.SelectedItem = obj.GovernmentType;
+            textBoxContinent.Text = obj.Continent;
         }
     }
 }

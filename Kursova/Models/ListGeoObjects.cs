@@ -110,7 +110,129 @@ namespace Kursova.Models
             }
         }
 
+        public void SearchObj(int ind, ListGeoObjects list, bool first = true)
+        {
+            string line;
+            if (first == true)
+            {
+                line = Convert.ToString(list[ind]);
+            }
+            else
+            {
+                line = Convert.ToString(this[ind]);
+            }
 
+            if (line.StartsWith("Місто|"))
+                return;
+            else if (line.StartsWith("Регіон|"))
+            {
+                GeoRegion obj = GeoRegion.FromString(line);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] is City city &&
+                        city.Region == obj.Name)
+                    {
+                        City c = City.FromString(Convert.ToString(list[i]));
+                        if (!this.Contains(c))
+                        {
+                            this.AddGeoObject(c);
+                        } 
+                    }
+                }
+            }
+            else if (line.StartsWith("Країна|"))
+            {
+                Country obj = Country.FromString(line);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] is GeoRegion region &&
+                        region.Country == obj.Name)
+                    {
+                        GeoRegion r = GeoRegion.FromString(Convert.ToString(list[i]));
+                        if (!this.Contains(r))
+                        {
+                            this.AddGeoObject(r);
+                        }
+                    }
+                }
+                for (int j = 0; j < this.Count; j += 1)
+                {
+                    string l = Convert.ToString(this[j]);
+                    if (l.StartsWith("Регіон|"))
+                    {
+                        this.SearchObj(j, list, false);
+                    }
+                }
+            }
+            else if (line.StartsWith("Континент|"))
+            {
+                Continent obj = Continent.FromString(line);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] is Country country &&
+                        country.Continent == obj.Name)
+                    {
+                        Country c = Country.FromString(Convert.ToString(list[i]));
+                        if (!this.Contains(c))
+                        {
+                            this.AddGeoObject(c);
+                        }
+                    }
+                }
+                for (int j = 0; j < this.Count; j += 1)
+                {
+                    string l = Convert.ToString(this[j]);
+                    if (l.StartsWith("Країна|"))
+                    {
+                        this.SearchObj(j, list, false);
+                    }
+                }
+            }
+        }
+
+        public bool Contains(GeoObject obj)
+        {
+            return geoObjectList.Any(item =>
+            {
+                if (obj is City cityObj && item is City city)
+                {
+                    return city.Name == cityObj.Name &&
+                           city.Coordinates.Latitude == cityObj.Coordinates.Latitude &&
+                           city.Coordinates.Longitude == cityObj.Coordinates.Longitude &&
+                           city.Population == cityObj.Population&&
+                           city.Region==cityObj.Region;
+                }
+                else if (obj is GeoRegion regionObj && item is GeoRegion region)
+                {
+                    return region.Name == regionObj.Name &&
+                           region.Coordinates.Latitude == regionObj.Coordinates.Latitude &&
+                           region.Coordinates.Longitude == regionObj.Coordinates.Longitude &&
+                           region.Country == regionObj.Country&&
+                           region.Type==regionObj.Type&&
+                           region.Capital==regionObj.Capital&&
+                           region.Population==regionObj.Population;
+                }
+                else if (obj is Country countryObj && item is Country country)
+                {
+                    return country.Name == countryObj.Name &&
+                           country.Coordinates.Latitude == countryObj.Coordinates.Latitude &&
+                           country.Coordinates.Longitude == countryObj.Coordinates.Longitude &&
+                           country.Continent == countryObj.Continent&&
+                           country.Area==countryObj.Area&&
+                           country.Population==countryObj.Population&&
+                           country.GovernmentType==countryObj.GovernmentType&&
+                           country.Capital==countryObj.Capital;
+                }
+                //else if (obj is Continent continentObj && item is Continent continent)
+                //{
+                //    return continent.Name == continentObj.Name;
+                //}
+                else
+                {
+                    return false;
+                }
+            });
+        }
 
 
 

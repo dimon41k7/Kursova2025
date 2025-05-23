@@ -38,6 +38,8 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            textBoxRegion = new TextBox();
+            label5 = new Label();
             SuspendLayout();
             // 
             // ButtonBack
@@ -52,7 +54,7 @@
             // 
             // Редагувати
             // 
-            Редагувати.Location = new Point(385, 163);
+            Редагувати.Location = new Point(371, 189);
             Редагувати.Name = "Редагувати";
             Редагувати.Size = new Size(94, 29);
             Редагувати.TabIndex = 18;
@@ -124,11 +126,29 @@
             label1.TabIndex = 10;
             label1.Text = "Назва міста";
             // 
+            // textBoxRegion
+            // 
+            textBoxRegion.Location = new Point(225, 282);
+            textBoxRegion.Name = "textBoxRegion";
+            textBoxRegion.Size = new Size(110, 27);
+            textBoxRegion.TabIndex = 21;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(85, 285);
+            label5.Name = "label5";
+            label5.Size = new Size(134, 20);
+            label5.TabIndex = 20;
+            label5.Text = "Належить регіону";
+            // 
             // FormCityEdit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 453);
+            Controls.Add(textBoxRegion);
+            Controls.Add(label5);
             Controls.Add(ButtonBack);
             Controls.Add(Редагувати);
             Controls.Add(textBoxPopulation);
@@ -159,5 +179,7 @@
         private Label label3;
         private Label label2;
         private Label label1;
+        private TextBox textBoxRegion;
+        private Label label5;
     }
 }

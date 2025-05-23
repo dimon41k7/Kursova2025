@@ -72,6 +72,7 @@
             listBoxGeoObjectsAll.Size = new Size(533, 184);
             listBoxGeoObjectsAll.TabIndex = 2;
             listBoxGeoObjectsAll.MouseClick += listBoxGeoObjectsAll_MouseClick;
+            listBoxGeoObjectsAll.DoubleClick += listBoxGeoObjectsAll_DoubleClick;
             // 
             // label1
             // 
