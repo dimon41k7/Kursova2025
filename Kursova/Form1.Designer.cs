@@ -44,6 +44,7 @@
             label2 = new Label();
             buttonGetFact = new Button();
             labelGetFact = new Label();
+            buttonGetData = new Button();
             SuspendLayout();
             // 
             // listBoxGeoObjects
@@ -198,11 +199,22 @@
             labelGetFact.Size = new Size(0, 20);
             labelGetFact.TabIndex = 15;
             // 
+            // buttonGetData
+            // 
+            buttonGetData.Location = new Point(1194, 391);
+            buttonGetData.Name = "buttonGetData";
+            buttonGetData.Size = new Size(113, 29);
+            buttonGetData.TabIndex = 16;
+            buttonGetData.Text = "Отримати тестові дані";
+            buttonGetData.UseVisualStyleBackColor = true;
+            buttonGetData.Click += buttonGetData_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 453);
+            Controls.Add(buttonGetData);
             Controls.Add(labelGetFact);
             Controls.Add(buttonGetFact);
             Controls.Add(label2);
@@ -246,5 +258,6 @@
         private Label label2;
         private Button buttonGetFact;
         private Label labelGetFact;
+        private Button buttonGetData;
     }
 }

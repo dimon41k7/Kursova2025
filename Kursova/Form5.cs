@@ -83,18 +83,18 @@ namespace Kursova
                 areastr = (areastr.Substring(0, ind1) + "," + areastr.Substring(ind1 + 1));
             }
             double area;
-            if (!double.TryParse(areastr, out area) || area < 0 || area > 20000000)
+            if (!double.TryParse(areastr, out area) || area < 0 || area > 44580000)
             {
-                MessageBox.Show("Невірна площа! Оберіть значення від 0.5 до 20000000 км");
+                MessageBox.Show("Невірна площа! Оберіть значення від 0.5 до 44 580 000 км");
                 return;
             }
 
             //перевіряємо населення
             int population;
             string populationtext = textBoxPopulation.Text;
-            if (!int.TryParse(populationtext, out population) || population < 0 || population > 1500000000)
+            if (!int.TryParse(populationtext, out population) || population < 0 || population > 4700000000)
             {
-                MessageBox.Show("Некоректне населення! Введіть значення від 0 до 1 500 000 000.");
+                MessageBox.Show("Некоректне населення! Введіть значення від 0 до 4 700 000 000.");
                 return;
             }
 

@@ -133,10 +133,6 @@ namespace Kursova.Models
             }
         }
 
-
-
-
-
         public IEnumerator<GeoObject> GetEnumerator()
         {
             return favoritesList.GetEnumerator();

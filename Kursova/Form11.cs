@@ -19,7 +19,8 @@ namespace Kursova
         private ListBox listBoxFavorites;
         private Form mainForm;
         private ListGeoObjects listShow;
-        public FormShowObj(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, Form mainForm, ListGeoObjects listShow)
+        private bool inMile;
+        public FormShowObj(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, Form mainForm, ListGeoObjects listShow, bool inMile = false)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;
@@ -27,6 +28,7 @@ namespace Kursova
             listBoxFavorites = listBox1;
             this.mainForm = mainForm;
             this.listShow = listShow;
+            this.inMile = inMile;
             InitializeComponent();
         }
 
@@ -54,7 +56,14 @@ namespace Kursova
 
         private void FormShowObj_Load(object sender, EventArgs e)
         {
-            listShow.RefreshList(listBoxShowObject);
+            if (inMile == true)
+            {
+                listShow.RefreshListInMile(listBoxShowObject);
+            }
+            else
+            {
+                listShow.RefreshList(listBoxShowObject);
+            }
         }
     }
 }

@@ -37,10 +37,6 @@ namespace Kursova.Models
             set => geoObjectList[index] = value;
         }
 
-
-
-
-
         public void RefreshList(ListBox list)
         {
             list.Items.Clear();
@@ -223,10 +219,6 @@ namespace Kursova.Models
                            country.GovernmentType==countryObj.GovernmentType&&
                            country.Capital==countryObj.Capital;
                 }
-                //else if (obj is Continent continentObj && item is Continent continent)
-                //{
-                //    return continent.Name == continentObj.Name;
-                //}
                 else
                 {
                     return false;
@@ -234,8 +226,40 @@ namespace Kursova.Models
             });
         }
 
+        public void GetTestData()
+        {
+            City city1 = new City("Харків", (49.989741, 36.233074), 1400000, "Харківська область");
+            City city2 = new City("Чугуїв", (49.835786, 36.685744), 31000, "Харківська область");
+            City city3 = new City("Люботин", (49.948129, 35.932717), 23600, "Харківська область");
+            City city4 = new City("Біла Церква", (49.802674, 30.125587), 203000, "Київська область");
+            City city5 = new City("Бровари", (50.506516, 30.800552), 100000, "Київська область");
+            City city6 = new City("Львів", (49.844435, 24), 721500, "Львівська область");
+            City city7 = new City("Дрогобич", (49.353243, 23.503787), 73600, "Львівська область");
+            City city8 = new City("Шептицький", (50.389186, 24.224359), 64300, "Львівська область");
+            GeoRegion region1 = new GeoRegion("Харківська область", (49.989741, 36.233074), "Область", "Україна", "Харків",  2557000);
+            GeoRegion region2 = new GeoRegion("Київська область", (50.466705, 30.535911), "Область", "Україна", "Київ", 4700000);
+            GeoRegion region3 = new GeoRegion("Львівська область", (49.844435, 24), "Область", "Україна", "Львів", 2470000);
+            Country country1 = new Country("Україна", (50.466705, 30.535911), 603000, 43500000, "Змішана республіка", "Київ", "Євразія");
+            Country country2 = new Country("Німеччина", (52.516572, 13.405726), 358000, 83500000, "Федеративна держава", "Берлін", "Євразія");
+            Country country3 = new Country("Японія", (35.756555, 139.746853), 380000, 125500000, "Конституційна монархія", "Токіо", "Євразія");
+            Continent continent1 = new Continent("Євразія", (54.5, 86), 55000000, 460000000);
+            this.AddGeoObject(city1);
+            this.AddGeoObject(city2);
+            this.AddGeoObject(city3);
+            this.AddGeoObject(city4);
+            this.AddGeoObject(city5);
+            this.AddGeoObject(city6);
+            this.AddGeoObject(city7);
+            this.AddGeoObject(city8);
+            this.AddGeoObject(region1);
+            this.AddGeoObject(region2);
+            this.AddGeoObject(region3);
+            this.AddGeoObject(country1);
+            this.AddGeoObject(country2);
+            this.AddGeoObject(country3);
+            this.AddGeoObject(continent1);
 
-
+        }
 
         public IEnumerator<GeoObject> GetEnumerator()
         {

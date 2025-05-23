@@ -232,7 +232,16 @@ namespace Kursova
             {
                 ListGeoObjects listShow = new ListGeoObjects();
                 listShow.SearchObj(listBoxGeoObjectsAll.SelectedIndex, listGeoObjects);
-                FormShowObj filterForm = new FormShowObj(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this, listShow);
+                string selected = comboBoxArea.SelectedItem.ToString();
+                FormShowObj filterForm;
+                if (selected == "Милі")
+                {
+                    filterForm = new FormShowObj(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this, listShow, true);
+                }
+                else
+                {
+                    filterForm = new FormShowObj(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this, listShow);
+                }
                 this.Hide();
                 filterForm.Show();
             }
@@ -355,6 +364,22 @@ namespace Kursova
         private void buttonGetFact_Click(object sender, EventArgs e)
         {
             labelGetFact.Text = GeoObject.InterestingFact();
+        }
+
+        private void buttonGetData_Click(object sender, EventArgs e)
+        {
+            listGeoObjects.GetTestData();
+            string selected = comboBoxArea.SelectedItem.ToString();
+
+            if (selected == "Милі")
+            {
+                listGeoObjects.RefreshListInMile(listBoxGeoObjectsAll);
+            }
+            else if (selected == "Кілометри")
+            {
+                listGeoObjects.RefreshList(listBoxGeoObjectsAll);
+            }
+            buttonGetData.Visible = false;
         }
 
         public string SelectedMorKm
