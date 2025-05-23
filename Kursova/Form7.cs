@@ -56,8 +56,19 @@ namespace Kursova
 
         private void Редагувати_Click(object sender, EventArgs e)
         {
+
+            City obj;
+            if (boollistall == true)
+            {
+                obj = City.FromString(Convert.ToString(listGeoObjects[indelem]));
+            }
+            else
+            {
+                obj = City.FromString(Convert.ToString(listFavoritesObjects[indelem]));
+            }
+
             //перевіряємо iм'я
-            string name = textBoxName.Text;
+            string name = textBoxName.Text.Replace(" ", "");
             if (!name.All(char.IsLetter))
             {
                 MessageBox.Show("Назва повинна містити тільки літери.");
@@ -68,6 +79,7 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            name = textBoxName.Text;
 
             //перевіряємо широту та довготу
             string latitude = textBoxLatitude.Text;
@@ -111,10 +123,34 @@ namespace Kursova
             {
 
                 listGeoObjects[indelem] = new City(name, (double.Parse(latitude), double.Parse(longitude)), population);
+                for(int i = 0; i < listFavoritesObjects.Count; i++)
+                {
+                    if (listFavoritesObjects[i] is City currentCity &&
+                    listFavoritesObjects[i].Name == obj.Name &&
+                    listFavoritesObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
+                    listFavoritesObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
+                    currentCity.Population == obj.Population)
+                    {
+                        listFavoritesObjects[i] = new City(name, (double.Parse(latitude), double.Parse(longitude)), population);
+                        break;
+                    }
+                }
             }
             else
             {
                 listFavoritesObjects[indelem] = new City(name, (double.Parse(latitude), double.Parse(longitude)), population);
+                for (int i = 0; i < listGeoObjects.Count; i++)
+                {
+                    if (listGeoObjects[i] is City currentCity &&
+                    listGeoObjects[i].Name == obj.Name &&
+                    listGeoObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
+                    listGeoObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
+                    currentCity.Population == obj.Population)
+                    {
+                        listGeoObjects[i] = new City(name, (double.Parse(latitude), double.Parse(longitude)), population);
+                        break;
+                    }
+                }
             }
             MessageBox.Show("Дані міста успішно відредаговані");
 

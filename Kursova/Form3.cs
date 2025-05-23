@@ -59,7 +59,7 @@ listBoxFavorites = listBox1;
         private void Додати_Click(object sender, EventArgs e)
         {
             //перевіряємо iм'я
-            string name = textBoxName.Text;
+            string name = textBoxName.Text.Replace(" ", "");
             if (!name.All(char.IsLetter))
             {
                 MessageBox.Show("Назва повинна містити тільки літери.");
@@ -70,6 +70,7 @@ listBoxFavorites = listBox1;
                 MessageBox.Show("Некоректна назва! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            name = textBoxName.Text;
 
             //перевіряємо широту та довготу
             string latitude = textBoxLatitude.Text;
@@ -102,7 +103,7 @@ listBoxFavorites = listBox1;
 
 
             //перевіряємо яка столиця регіону
-            string capital = textBoxCapital.Text;
+            string capital = textBoxCapital.Text.Replace(" ", ""); ;
             if (!capital.All(char.IsLetter))
             {
                 MessageBox.Show("Назва столиці повинна містити тільки літери.");
@@ -113,9 +114,10 @@ listBoxFavorites = listBox1;
                 MessageBox.Show("Некоректна назва столиці! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            capital = textBoxCapital.Text;
 
             //перевіряємо яій країні належить
-            string country = textBoxCountry.Text;
+            string country = textBoxCountry.Text.Replace(" ", ""); ;
             if (!country.All(char.IsLetter))
             {
                 MessageBox.Show("Назва країни повинна містити тільки літери.");
@@ -126,6 +128,7 @@ listBoxFavorites = listBox1;
                 MessageBox.Show("Некоректна назва країни, якій належить регіон! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            country = textBoxCountry.Text;
 
             //перевіряємо населення
             int population;

@@ -47,7 +47,7 @@ namespace Kursova
         private void Додати_Click(object sender, EventArgs e)
         {
             //перевіряємо iм'я
-            string name = textBoxName.Text;
+            string name = textBoxName.Text.Replace(" ", "");
             if (!name.All(char.IsLetter))
             {
                 MessageBox.Show("Назва повинна містити тільки літери.");
@@ -58,6 +58,7 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            name = textBoxName.Text;
 
             //перевіряємо широту та довготу
             string latitude = textBoxLatitude.Text;
@@ -104,7 +105,7 @@ namespace Kursova
             }
 
             //перевіряємо яка столиця країни
-            string capital = textBoxCapital.Text;
+            string capital = textBoxCapital.Text.Replace(" ", "");
             if (!capital.All(char.IsLetter))
             {
                 MessageBox.Show("Назва столиці повинна містити тільки літери.");
@@ -115,6 +116,7 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва столиці! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            capital = textBoxCapital.Text;
 
             //перевіряємо населення
             int population;

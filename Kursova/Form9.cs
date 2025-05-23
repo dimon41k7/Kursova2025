@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -56,8 +57,18 @@ namespace Kursova
 
         private void Редагувати_Click(object sender, EventArgs e)
         {
+            Country obj;
+            if (boollistall == true)
+            {
+                obj = Country.FromString(Convert.ToString(listGeoObjects[indelem]));
+            }
+            else
+            {
+                obj = Country.FromString(Convert.ToString(listFavoritesObjects[indelem]));
+            }
+
             //перевіряємо iм'я
-            string name = textBoxName.Text;
+            string name = textBoxName.Text.Replace(" ", "");
             if (!name.All(char.IsLetter))
             {
                 MessageBox.Show("Назва повинна містити тільки літери.");
@@ -68,6 +79,7 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            name = textBoxName.Text;
 
             //перевіряємо широту та довготу
             string latitude = textBoxLatitude.Text;
@@ -114,7 +126,7 @@ namespace Kursova
             }
 
             //перевіряємо яка столиця країни
-            string capital = textBoxCapital.Text;
+            string capital = textBoxCapital.Text.Replace(" ", "");
             if (!capital.All(char.IsLetter))
             {
                 MessageBox.Show("Назва столиці повинна містити тільки літери.");
@@ -125,6 +137,7 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва столиці! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            capital = textBoxCapital.Text;
 
             //перевіряємо населення
             int population;
@@ -147,10 +160,40 @@ namespace Kursova
             {
 
                 listGeoObjects[indelem] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+                for (int i = 0; i < listFavoritesObjects.Count; i++)
+                {
+                    if (listFavoritesObjects[i] is Country currentCountry &&
+                    listFavoritesObjects[i].Name == obj.Name &&
+                    listFavoritesObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
+                    listFavoritesObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
+                    currentCountry.Area == obj.Area &&
+                    currentCountry.Capital == obj.Capital &&
+                    currentCountry.Population == obj.Population &&
+                    currentCountry.GovernmentType == obj.GovernmentType)
+                    {
+                        listFavoritesObjects[i] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+                        break;
+                    }
+                }
             }
             else
             {
                 listFavoritesObjects[indelem] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+                for (int i = 0; i < listGeoObjects.Count; i++)
+                {
+                    if (listGeoObjects[i] is Country currentCountry &&
+                    listGeoObjects[i].Name == obj.Name &&
+                    listGeoObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
+                    listGeoObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
+                    currentCountry.Area == obj.Area &&
+                    currentCountry.Capital == obj.Capital &&
+                    currentCountry.Population == obj.Population &&
+                    currentCountry.GovernmentType == obj.GovernmentType)
+                    {
+                        listGeoObjects[i] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital);
+                        break;
+                    }
+                }
             }
             MessageBox.Show("Дані країни успішно відредаговані");
 

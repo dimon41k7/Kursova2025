@@ -55,7 +55,7 @@ namespace Kursova
         private void buttonFilter_Click(object sender, EventArgs e)
         {
             //перевіряємо iм'я
-            string name = textBoxNameFilter.Text;
+            string name = textBoxNameFilter.Text.Replace(" ", "");
             if (name != "")
             {
                 if (!name.All(char.IsLetter))
@@ -69,7 +69,8 @@ namespace Kursova
                     return;
                 }
             }
-            
+            name = textBoxNameFilter.Text;
+
 
             //перевіряємо широту та довготу
             string latitudemin = textBoxLatitudeMin.Text;

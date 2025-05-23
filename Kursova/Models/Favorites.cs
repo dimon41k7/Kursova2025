@@ -10,6 +10,7 @@ namespace Kursova.Models
     public class Favorites : IEnumerable<GeoObject>
     {
         private List<GeoObject> favoritesList = new List<GeoObject>();
+        public int Count => favoritesList.Count;
 
         public void AddFavorite(GeoObject geoObject)
         {

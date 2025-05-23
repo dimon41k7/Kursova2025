@@ -56,8 +56,18 @@ namespace Kursova
 
         private void Редагувати_Click(object sender, EventArgs e)
         {
+            GeoRegion obj;
+            if (boollistall == true)
+            {
+                obj = GeoRegion.FromString(Convert.ToString(listGeoObjects[indelem]));
+            }
+            else
+            {
+                obj = GeoRegion.FromString(Convert.ToString(listFavoritesObjects[indelem]));
+            }
+
             //перевіряємо iм'я
-            string name = textBoxName.Text;
+            string name = textBoxName.Text.Replace(" ", "");
             if (!name.All(char.IsLetter))
             {
                 MessageBox.Show("Назва повинна містити тільки літери.");
@@ -68,6 +78,7 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            name = textBoxName.Text;
 
             //перевіряємо широту та довготу
             string latitude = textBoxLatitude.Text;
@@ -100,7 +111,7 @@ namespace Kursova
 
 
             //перевіряємо яка столиця регіону
-            string capital = textBoxCapital.Text;
+            string capital = textBoxCapital.Text.Replace(" ", "");
             if (!capital.All(char.IsLetter))
             {
                 MessageBox.Show("Назва столиці повинна містити тільки літери.");
@@ -111,9 +122,10 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва столиці! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            capital = textBoxCapital.Text;
 
             //перевіряємо яій країні належить
-            string country = textBoxCountry.Text;
+            string country = textBoxCountry.Text.Replace(" ", "");
             if (!country.All(char.IsLetter))
             {
                 MessageBox.Show("Назва країни повинна містити тільки літери.");
@@ -124,6 +136,7 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва країни, якій належить регіон! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            country = textBoxCountry.Text;
 
             //перевіряємо населення
             int population;
@@ -146,10 +159,40 @@ namespace Kursova
             {
 
                 listGeoObjects[indelem] = new GeoRegion(name, (double.Parse(latitude), double.Parse(longitude)), selectedType, country, capital, population);
+                for (int i = 0; i < listFavoritesObjects.Count; i++)
+                {
+                    if (listFavoritesObjects[i] is GeoRegion currentRegion &&
+                    listFavoritesObjects[i].Name == obj.Name &&
+                    listFavoritesObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
+                    listFavoritesObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
+                    currentRegion.Capital==obj.Capital&&
+                    currentRegion.Country == obj.Country &&
+                    currentRegion.Population == obj.Population&&
+                    currentRegion.Type == obj.Type)
+                    {
+                        listFavoritesObjects[i] = new GeoRegion(name, (double.Parse(latitude), double.Parse(longitude)), selectedType, country, capital, population);
+                        break;
+                    }
+                }
             }
             else
             {
                 listFavoritesObjects[indelem] = new GeoRegion(name, (double.Parse(latitude), double.Parse(longitude)), selectedType, country, capital, population);
+                for (int i = 0; i < listGeoObjects.Count; i++)
+                {
+                    if (listGeoObjects[i] is GeoRegion currentRegion &&
+                    listGeoObjects[i].Name == obj.Name &&
+                    listGeoObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
+                    listGeoObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
+                    currentRegion.Capital == obj.Capital &&
+                    currentRegion.Country == obj.Country &&
+                    currentRegion.Population == obj.Population &&
+                    currentRegion.Type == obj.Type)
+                    {
+                        listGeoObjects[i] = new GeoRegion(name, (double.Parse(latitude), double.Parse(longitude)), selectedType, country, capital, population);
+                        break;
+                    }
+                }
             }
             MessageBox.Show("Дані регіону успішно відредаговані");
 

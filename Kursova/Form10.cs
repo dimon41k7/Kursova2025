@@ -56,8 +56,18 @@ namespace Kursova
 
         private void Редагувати_Click(object sender, EventArgs e)
         {
+            Continent obj;
+            if (boollistall == true)
+            {
+                obj = Continent.FromString(Convert.ToString(listGeoObjects[indelem]));
+            }
+            else
+            {
+                obj = Continent.FromString(Convert.ToString(listFavoritesObjects[indelem]));
+            }
+
             //перевіряємо iм'я
-            string name = textBoxName.Text;
+            string name = textBoxName.Text.Replace(" ", "");
             if (!name.All(char.IsLetter))
             {
                 MessageBox.Show("Назва повинна містити тільки літери.");
@@ -68,6 +78,7 @@ namespace Kursova
                 MessageBox.Show("Некоректна назва! Введіть назву від 1 символу до 100 символів");
                 return;
             }
+            name = textBoxName.Text;
 
             //перевіряємо широту та довготу
             string latitude = textBoxLatitude.Text;
@@ -126,10 +137,36 @@ namespace Kursova
             {
 
                 listGeoObjects[indelem] = new Continent(name, (double.Parse(latitude), double.Parse(longitude)), area, population);
+                for (int i = 0; i < listFavoritesObjects.Count; i++)
+                {
+                    if (listFavoritesObjects[i] is Continent currentContinent &&
+                    listFavoritesObjects[i].Name == obj.Name &&
+                    listFavoritesObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
+                    listFavoritesObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
+                    currentContinent.Area==obj.Area&&
+                    currentContinent.Population == obj.Population)
+                    {
+                        listFavoritesObjects[i] = new Continent(name, (double.Parse(latitude), double.Parse(longitude)), area, population);
+                        break;
+                    }
+                }
             }
             else
             {
                 listFavoritesObjects[indelem] = new Continent(name, (double.Parse(latitude), double.Parse(longitude)), area, population);
+                for (int i = 0; i < listGeoObjects.Count; i++)
+                {
+                    if (listGeoObjects[i] is Continent currentContinent &&
+                    listGeoObjects[i].Name == obj.Name &&
+                    listGeoObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
+                    listGeoObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
+                    currentContinent.Area == obj.Area &&
+                    currentContinent.Population == obj.Population)
+                    {
+                        listGeoObjects[i] = new Continent(name, (double.Parse(latitude), double.Parse(longitude)), area, population);
+                        break;
+                    }
+                }
             }
             MessageBox.Show("Дані країни успішно відредаговані");
 

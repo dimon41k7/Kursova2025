@@ -11,6 +11,7 @@ namespace Kursova.Models
     public class ListGeoObjects : IEnumerable<GeoObject>
     {
         private List<GeoObject> geoObjectList = new List<GeoObject>();
+        public int Count => geoObjectList.Count;
 
         public void AddGeoObject(GeoObject geoObject)
         {
