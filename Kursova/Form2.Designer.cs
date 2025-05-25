@@ -162,6 +162,7 @@
             MinimumSize = new Size(1350, 500);
             Name = "AddCityForm";
             Text = "AddCityForm";
+            Load += AddCityForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

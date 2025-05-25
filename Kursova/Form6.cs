@@ -15,13 +15,13 @@ namespace Kursova
     public partial class FormFilter : Form
     {
         private ListGeoObjects listGeoObjects;
-        private Favorites listFavoritesObjects = new Favorites();
+        private ListGeoObjects listFavoritesObjects = new ListGeoObjects();
         private ListBox listBoxGeoObjectsAll;
         private ListBox listBoxFavorites;
         private ListGeoObjects filterlistGeoObjects = new ListGeoObjects();
-        private Favorites filterlistFavoritesObjects = new Favorites();
+        private ListGeoObjects filterlistFavoritesObjects = new ListGeoObjects();
         private Form mainForm;
-        public FormFilter(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, Form mainForm)
+        public FormFilter(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;

@@ -201,9 +201,9 @@
             // 
             // buttonGetData
             // 
-            buttonGetData.Location = new Point(1194, 391);
+            buttonGetData.Location = new Point(1107, 391);
             buttonGetData.Name = "buttonGetData";
-            buttonGetData.Size = new Size(113, 29);
+            buttonGetData.Size = new Size(200, 29);
             buttonGetData.TabIndex = 16;
             buttonGetData.Text = "Отримати тестові дані";
             buttonGetData.UseVisualStyleBackColor = true;

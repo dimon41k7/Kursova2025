@@ -14,13 +14,13 @@ namespace Kursova
     public partial class FormContinentEdit : Form
     {
         private ListGeoObjects listGeoObjects;
-        private Favorites listFavoritesObjects = new Favorites();
+        private ListGeoObjects listFavoritesObjects = new ListGeoObjects();
         private ListBox listBoxGeoObjectsAll;
         private ListBox listBoxFavorites;
         private int indelem;
         private bool boollistall;
         private Form mainForm;
-        public FormContinentEdit(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, int index, bool ifitislistall, Form mainForm)
+        public FormContinentEdit(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, int index, bool ifitislistall, Form mainForm)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;

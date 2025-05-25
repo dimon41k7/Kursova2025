@@ -14,13 +14,13 @@ namespace Kursova
     public partial class FormShowObj : Form
     {
         private ListGeoObjects listGeoObjects;
-        private Favorites listFavoritesObjects = new Favorites();
+        private ListGeoObjects listFavoritesObjects = new ListGeoObjects();
         private ListBox listBoxGeoObjectsAll;
         private ListBox listBoxFavorites;
         private Form mainForm;
         private ListGeoObjects listShow;
         private bool inMile;
-        public FormShowObj(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, Form mainForm, ListGeoObjects listShow, bool inMile = false)
+        public FormShowObj(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm, ListGeoObjects listShow, bool inMile = false)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;

@@ -14,17 +14,17 @@ namespace Kursova
     public partial class AddRegionForm : Form
     {
         private ListGeoObjects listGeoObjects;
-        private Favorites listFavoritesObjects = new Favorites();
+        private ListGeoObjects listFavoritesObjects = new ListGeoObjects();
         private ListBox listBoxGeoObjectsAll;
         private ListBox listBoxFavorites;
         private Form mainForm;
 
-        public AddRegionForm(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, Form mainForm)
+        public AddRegionForm(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;
             listBoxGeoObjectsAll = listBox;
-listBoxFavorites = listBox1;
+            listBoxFavorites = listBox1;
             this.mainForm = mainForm;
             InitializeComponent();
         }

@@ -6,7 +6,7 @@ namespace Kursova
     public partial class MainForm : Form
     {
         private ListGeoObjects listGeoObjects = new ListGeoObjects();
-        private Favorites listFavoritesObjects = new Favorites();
+        private ListGeoObjects listFavoritesObjects = new ListGeoObjects();
         private int lastClickedIndexAll = -1;
         private int lastClickedIndexFavorites = -1;
         public MainForm()
@@ -89,8 +89,8 @@ namespace Kursova
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            listGeoObjects.LoadData();
-            listFavoritesObjects.LoadData();
+            listGeoObjects.LoadData("objects.txt");
+            listFavoritesObjects.LoadData("favoritesobjects.txt");
             string selected = comboBoxArea.SelectedItem.ToString();
             if (selected == "Милі")
             {
@@ -166,7 +166,7 @@ namespace Kursova
                 switch (result)
                 {
                     case DialogResult.Yes:
-                        listFavoritesObjects.RemoveFavorite(listBoxFavorites.SelectedIndex);
+                        listFavoritesObjects.RemoveGeoObject(listBoxFavorites.SelectedIndex);
                         string selected = comboBoxArea.SelectedItem.ToString();
 
                         if (selected == "Милі")
@@ -233,6 +233,11 @@ namespace Kursova
                 ListGeoObjects listShow = new ListGeoObjects();
                 listShow.SearchObj(listBoxGeoObjectsAll.SelectedIndex, listGeoObjects);
                 string selected = comboBoxArea.SelectedItem.ToString();
+                if (listShow.Count == 0)
+                {
+                    MessageBox.Show("Нічого не вдалося знайти!");
+                    return;
+                }
                 FormShowObj filterForm;
                 if (selected == "Милі")
                 {

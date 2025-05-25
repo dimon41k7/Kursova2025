@@ -14,12 +14,12 @@ namespace Kursova
     public partial class AddContinentForm : Form
     {
         private ListGeoObjects listGeoObjects;
-        private Favorites listFavoritesObjects = new Favorites();
+        private ListGeoObjects listFavoritesObjects = new ListGeoObjects();
         private ListBox listBoxGeoObjectsAll;
         private ListBox listBoxFavorites;
         private Form mainForm;
 
-        public AddContinentForm(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, Form mainForm)
+        public AddContinentForm(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;

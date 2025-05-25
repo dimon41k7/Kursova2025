@@ -14,11 +14,11 @@ namespace Kursova
     public partial class AddCityForm : Form
     {
         private ListGeoObjects listGeoObjects;
-        private Favorites listFavoritesObjects = new Favorites();
+        private ListGeoObjects listFavoritesObjects = new ListGeoObjects();
         private ListBox listBoxGeoObjectsAll;
         private ListBox listBoxFavorites;
         private Form mainForm;
-        public AddCityForm(ListGeoObjects list, Favorites listf, ListBox listBox, ListBox listBox1, Form mainForm)
+        public AddCityForm(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;
@@ -123,6 +123,11 @@ namespace Kursova
             //((MainForm)mainForm).RefreshList();
             mainForm.Show();
             this.Close();
+        }
+
+        private void AddCityForm_Load(object sender, EventArgs e)
+        {
+
         }
 
         //private void AddCityForm_FormClosing(object sender, FormClosingEventArgs e)

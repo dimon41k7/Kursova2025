@@ -66,14 +66,40 @@ namespace Kursova.Models
             }
         }
 
-        public void LoadData()
+        //public void LoadData()
+        //{
+        //    if (!File.Exists("objects.txt"))
+        //    {
+        //        return;
+        //    }
+
+        //    using (StreamReader reader = new("objects.txt"))
+        //    {
+        //        string? line;
+        //        while ((line = reader.ReadLine()) != null)
+        //        {
+        //            {
+        //                if (line.StartsWith("Місто|"))
+        //                    this.AddGeoObject(City.FromString(line));
+        //                else if (line.StartsWith("Регіон|"))
+        //                    this.AddGeoObject(GeoRegion.FromString(line));
+        //                else if (line.StartsWith("Країна|"))
+        //                    this.AddGeoObject(Country.FromString(line));
+        //                else if (line.StartsWith("Континент|"))
+        //                    this.AddGeoObject(Continent.FromString(line));
+        //            }
+        //        }
+        //    }
+        //}
+
+        public void LoadData(string path)
         {
-            if (!File.Exists("objects.txt"))
+            if (!File.Exists(path))
             {
                 return;
             }
 
-            using (StreamReader reader = new("objects.txt"))
+            using (StreamReader reader = new(path))
             {
                 string? line;
                 while ((line = reader.ReadLine()) != null)
@@ -224,6 +250,33 @@ namespace Kursova.Models
                     return false;
                 }
             });
+        }
+
+        public void AddToFavorites(string line, string selected = "Кілометри")
+        {
+            if (line.StartsWith("Місто|"))
+                this.AddGeoObject(City.FromString(line));
+            else if (line.StartsWith("Регіон|"))
+                this.AddGeoObject(GeoRegion.FromString(line));
+            else if (line.StartsWith("Країна|"))
+            {
+                var obj = Country.FromString(line);
+                if (selected == "Милі")
+                {
+                    obj.Area = obj.Area * 1.60934;
+                }
+                this.AddGeoObject(obj);
+            }
+
+            else if (line.StartsWith("Континент|"))
+            {
+                var obj = Continent.FromString(line);
+                if (selected == "Милі")
+                {
+                    obj.Area = obj.Area * 1.60934;
+                }
+                this.AddGeoObject(obj);
+            }
         }
 
         public void GetTestData()
