@@ -6,14 +6,25 @@ using System.Threading.Tasks;
 
 namespace Kursova.Models
 {
-    class Country:GeoObject
+    // Клас, що представляє країну як географічний об'єкт з додатковими властивостями: площею, населенням, формою правління, столицею та континентом.
+    class Country :GeoObject
     {
+        //Площа
         public double Area { get; set; }
+        
+        //Населення
         public int Population { get; set; }
+
+        //Форма правління
         public string GovernmentType { get; set; }
+
+        //Столиця
         public string Capital { get; set; }
+
+        // Континент, у якому розташована країна.
         public string Continent { get; set; }
 
+        // Конструктор, який ініціалізує новий екземпляр країни з назвою, координатами, площею, населенням, формою правління, столицею і континентом.
         public Country(string name, (double Latitude, double Longitude) coordinates, double area, int population, string governmentType, string capital, string continent)
             : base(name, coordinates)
         {
@@ -24,15 +35,19 @@ namespace Kursova.Models
             Continent = continent;
         }
 
+        // Перетворює об'єкт на рядок.
         public override string ToString()
         {
             return $"Країна|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area}|{Population}|{GovernmentType}|{Capital}|{Continent}";   
         }
 
+        //Перетворює об'єкт на рядок, враховуючи конвертацію площі в милі квадратні
         public override string ToStringInMile()
         {
             return $"Країна|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area* 0.621371}|{Population}|{GovernmentType}|{Capital}|{Continent}";
         }
+
+        // Створює екземпляр країни з рядка
         public static new Country FromString(string line)
         {
             string[] arr = line.Split('|');

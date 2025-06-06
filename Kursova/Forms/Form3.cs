@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Kursova.Models;
+using Kursova.Services;
 
 namespace Kursova
 {
@@ -18,6 +19,7 @@ namespace Kursova
         private ListBox listBoxGeoObjectsAll;
         private ListBox listBoxFavorites;
         private Form mainForm;
+        private bool closeByBackButton = false;
 
         public AddRegionForm(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm)
         {
@@ -154,6 +156,7 @@ namespace Kursova
 
         private void ButtonBack_Click(object sender, EventArgs e)
         {
+            closeByBackButton = true;
             if (mainForm is MainForm main)
             {
                 string selected = main.SelectedMorKm;
@@ -169,40 +172,42 @@ namespace Kursova
                     listFavoritesObjects.RefreshList(listBoxFavorites);
                 }
             }
-            //((MainForm)mainForm).RefreshList();
             mainForm.Show();
             this.Close();
 
         }
 
-        //private void AddRegionForm_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
-        //    switch (result)
-        //    {
-        //        case DialogResult.Yes:
-        //            using (StreamWriter writer = new("objects.txt"))
-        //            {
-        //                foreach (var obj in listGeoObjects)
-        //                {
-        //                    writer.WriteLine(obj.ToString());
-        //                }
-        //            }
+        private void AddRegionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closeByBackButton == false)
+            {
+                var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        using (StreamWriter writer = new("objects.txt"))
+                        {
+                            foreach (var obj in listGeoObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
 
-        //            using (StreamWriter writer = new("favoritesobjects.txt"))
-        //            {
-        //                foreach (var obj in listFavoritesObjects)
-        //                {
-        //                    writer.WriteLine(obj.ToString());
-        //                }
-        //            }
-        //            break;
-        //        case DialogResult.No:
-        //            break;
-        //        case DialogResult.Cancel:
-        //            e.Cancel = true;
-        //            break;
-        //    }
-        //}
+                        using (StreamWriter writer = new("favoritesobjects.txt"))
+                        {
+                            foreach (var obj in listFavoritesObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
+        }
     }
 }

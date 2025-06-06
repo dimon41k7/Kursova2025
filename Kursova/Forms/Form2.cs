@@ -8,18 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Kursova.Models;
+using Kursova.Services;
 
 namespace Kursova
 {
-    public partial class AddContinentForm : Form
+    public partial class AddCityForm : Form
     {
         private ListGeoObjects listGeoObjects;
         private ListGeoObjects listFavoritesObjects = new ListGeoObjects();
         private ListBox listBoxGeoObjectsAll;
         private ListBox listBoxFavorites;
         private Form mainForm;
-
-        public AddContinentForm(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm)
+        private bool closeByBackButton = false;
+        public AddCityForm(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm)
         {
             listGeoObjects = list;
             listFavoritesObjects = listf;
@@ -32,7 +33,7 @@ namespace Kursova
         private void Додати_Click(object sender, EventArgs e)
         {
             //перевіряємо iм'я
-            string name = textBoxName.Text.Replace(" ", "");
+            string name = textBoxName.Text.Replace(" ", ""); ;
             if (!name.All(char.IsLetter))
             {
                 MessageBox.Show("Назва повинна містити тільки літери.");
@@ -75,37 +76,38 @@ namespace Kursova
             }
 
 
-            //перевіряємо площу
-            string areastr = textBoxArea.Text;
-            int ind1 = areastr.IndexOf(".");
-            if (ind1 != -1)
-            {
-                areastr = (areastr.Substring(0, ind1) + "," + areastr.Substring(ind1 + 1));
-            }
-            double area;
-            if (!double.TryParse(areastr, out area) || area < 0 || area > 44580000)
-            {
-                MessageBox.Show("Невірна площа! Оберіть значення від 0.5 до 44 580 000 км");
-                return;
-            }
-
             //перевіряємо населення
             int population;
             string populationtext = textBoxPopulation.Text;
-            if (!int.TryParse(populationtext, out population) || population < 0 || population > 4700000000)
+            if (!int.TryParse(populationtext, out population) || population < 0 || population > 50000000)
             {
-                MessageBox.Show("Некоректне населення! Введіть значення від 0 до 4 700 000 000.");
+                MessageBox.Show("Некоректне населення! Введіть значення від 0 до 50 000 000.");
                 return;
             }
 
-            var continent = new Continent(name, (double.Parse(latitude), double.Parse(longitude)), area, population);
-            listGeoObjects.AddGeoObject(continent);
-            MessageBox.Show("Континент успішно додався!");
 
+            //перевіряємо якому регіону належить
+            string region = textBoxRegion.Text.Replace(" ", ""); ;
+            if (!region.All(char.IsLetter))
+            {
+                MessageBox.Show("Назва регіону, якому належить місто, повинна містити тільки літери.");
+                return;
+            }
+            if (region.Length == 0 || region.Length >= 100)
+            {
+                MessageBox.Show("Некоректна назва регіону, якому належить місто! Введіть назву від 1 символу до 100 символів");
+                return;
+            }
+            region = textBoxRegion.Text;
+
+            var city = new City(name, (double.Parse(latitude), double.Parse(longitude)), population, region);
+            listGeoObjects.AddGeoObject(city);
+            MessageBox.Show("Місто успішно додалося!");
         }
 
         private void ButtonBack_Click(object sender, EventArgs e)
         {
+            closeByBackButton = true;
             if (mainForm is MainForm main)
             {
                 string selected = main.SelectedMorKm;
@@ -121,39 +123,41 @@ namespace Kursova
                     listFavoritesObjects.RefreshList(listBoxFavorites);
                 }
             }
-            //((MainForm)mainForm).RefreshList();
             mainForm.Show();
             this.Close();
         }
 
-        //private void AddContinentForm_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
-        //    switch (result)
-        //    {
-        //        case DialogResult.Yes:
-        //            using (StreamWriter writer = new("objects.txt"))
-        //            {
-        //                foreach (var obj in listGeoObjects)
-        //                {
-        //                    writer.WriteLine(obj.ToString());
-        //                }
-        //            }
+        private void AddCityForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closeByBackButton==false)
+            {
+                var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        using (StreamWriter writer = new("objects.txt"))
+                        {
+                            foreach (var obj in listGeoObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
 
-        //            using (StreamWriter writer = new("favoritesobjects.txt"))
-        //            {
-        //                foreach (var obj in listFavoritesObjects)
-        //                {
-        //                    writer.WriteLine(obj.ToString());
-        //                }
-        //            }
-        //            break;
-        //        case DialogResult.No:
-        //            break;
-        //        case DialogResult.Cancel:
-        //            e.Cancel = true;
-        //            break;
-        //    }
-        //}
+                        using (StreamWriter writer = new("favoritesobjects.txt"))
+                        {
+                            foreach (var obj in listFavoritesObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
+        }
     }
 }

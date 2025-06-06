@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Kursova.Models;
+using Kursova.Services;
 
 namespace Kursova
 {
@@ -21,6 +22,7 @@ namespace Kursova
         private int indelem;
         private bool boollistall;
         private Form mainForm;
+        private bool closeByBackButton = false;
         public FormCountryEdit(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, int index, bool ifitislistall, Form mainForm)
         {
             listGeoObjects = list;
@@ -35,6 +37,7 @@ namespace Kursova
 
         private void ButtonBack_Click(object sender, EventArgs e)
         {
+            closeByBackButton = true;
             if (mainForm is MainForm main)
             {
                 string selected = main.SelectedMorKm;
@@ -50,7 +53,6 @@ namespace Kursova
                     listFavoritesObjects.RefreshList(listBoxFavorites);
                 }
             }
-            //((MainForm)mainForm).RefreshList();
             mainForm.Show();
             this.Close();
         }
@@ -184,8 +186,8 @@ namespace Kursova
                     currentCountry.Area == obj.Area &&
                     currentCountry.Capital == obj.Capital &&
                     currentCountry.Population == obj.Population &&
-                    currentCountry.GovernmentType == obj.GovernmentType&&
-                    currentCountry.Continent==obj.Continent)
+                    currentCountry.GovernmentType == obj.GovernmentType &&
+                    currentCountry.Continent == obj.Continent)
                     {
                         listFavoritesObjects[i] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital, continent);
                         break;
@@ -204,7 +206,7 @@ namespace Kursova
                     currentCountry.Area == obj.Area &&
                     currentCountry.Capital == obj.Capital &&
                     currentCountry.Population == obj.Population &&
-                    currentCountry.GovernmentType == obj.GovernmentType&&
+                    currentCountry.GovernmentType == obj.GovernmentType &&
                     currentCountry.Continent == obj.Continent)
                     {
                         listGeoObjects[i] = new Country(name, (double.Parse(latitude), double.Parse(longitude)), area, population, selectedGovernmentType, capital, continent);
@@ -265,6 +267,39 @@ namespace Kursova
             listBoxGovernmentType.Items.Add("Однопартійна система");
             listBoxGovernmentType.SelectedItem = obj.GovernmentType;
             textBoxContinent.Text = obj.Continent;
+        }
+
+        private void FormCountryEdit_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closeByBackButton == false)
+            {
+                var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        using (StreamWriter writer = new("objects.txt"))
+                        {
+                            foreach (var obj in listGeoObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
+
+                        using (StreamWriter writer = new("favoritesobjects.txt"))
+                        {
+                            foreach (var obj in listFavoritesObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
         }
     }
 }

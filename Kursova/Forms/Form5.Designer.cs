@@ -76,7 +76,7 @@
             // 
             // Додати
             // 
-            Додати.Location = new Point(480, 186);
+            Додати.Location = new Point(620, 130);
             Додати.Name = "Додати";
             Додати.Size = new Size(94, 29);
             Додати.TabIndex = 47;
@@ -162,6 +162,7 @@
             MinimumSize = new Size(1350, 500);
             Name = "AddContinentForm";
             Text = "AddContinentForm";
+            FormClosing += AddContinentForm_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

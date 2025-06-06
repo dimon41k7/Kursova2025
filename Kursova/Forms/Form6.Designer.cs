@@ -162,6 +162,7 @@
             MinimumSize = new Size(1350, 500);
             Name = "FormFilter";
             Text = "Form6";
+            FormClosing += FormFilter_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

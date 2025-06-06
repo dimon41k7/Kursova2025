@@ -5,14 +5,22 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Kursova.Models;
 
-namespace Kursova.Models
+namespace Kursova.Services
 {
+    // Клас, що представляє колекцію географічних об’єктів. Забезпечує додавання об'єктів до колекції, видалення, відображення, відображення в милях, зберігання колекції в текстовий документ, завантаження колекції з текстового документу, фільтрування, пошук об'єктв за ієрархією.
+
     public class ListGeoObjects : IEnumerable<GeoObject>
     {
+
+        // Список для зберігання географічних об’єктів.
         private List<GeoObject> geoObjectList = new List<GeoObject>();
+
+        // Повертає кількість об’єктів у списку.
         public int Count => geoObjectList.Count;
 
+        // Додає об’єкт у список.
         public void AddGeoObject(GeoObject geoObject)
         {
             if (!geoObjectList.Contains(geoObject))
@@ -21,22 +29,20 @@ namespace Kursova.Models
             }
         }
 
+        // Видаляє об’єкт зі списку за індексом.
         public void RemoveGeoObject(int ind)
         {
             geoObjectList.RemoveAt(ind);
         }
 
-        public List<GeoObject> ShowGeoObjects()
-        {
-            return geoObjectList;
-        }
-
+        // Доступ до елементів списку за індексом.
         public GeoObject this[int index]
         {
             get => geoObjectList[index];
             set => geoObjectList[index] = value;
         }
 
+        // Оновлює вміст ListBox списком об’єктів.
         public void RefreshList(ListBox list)
         {
             list.Items.Clear();
@@ -46,6 +52,7 @@ namespace Kursova.Models
             }
         }
 
+        // Оновлює вміст ListBox списком об’єктів, конвертуючи площу в милі квадратні.
         public void RefreshListInMile(ListBox list)
         {
             list.Items.Clear();
@@ -55,6 +62,7 @@ namespace Kursova.Models
             }
         }
 
+        // Зберігає список у текстовий файл за вказаним шляхом.
         public void SaveData(string path)
         {
             using (StreamWriter writer = new(path))
@@ -66,32 +74,7 @@ namespace Kursova.Models
             }
         }
 
-        //public void LoadData()
-        //{
-        //    if (!File.Exists("objects.txt"))
-        //    {
-        //        return;
-        //    }
-
-        //    using (StreamReader reader = new("objects.txt"))
-        //    {
-        //        string? line;
-        //        while ((line = reader.ReadLine()) != null)
-        //        {
-        //            {
-        //                if (line.StartsWith("Місто|"))
-        //                    this.AddGeoObject(City.FromString(line));
-        //                else if (line.StartsWith("Регіон|"))
-        //                    this.AddGeoObject(GeoRegion.FromString(line));
-        //                else if (line.StartsWith("Країна|"))
-        //                    this.AddGeoObject(Country.FromString(line));
-        //                else if (line.StartsWith("Континент|"))
-        //                    this.AddGeoObject(Continent.FromString(line));
-        //            }
-        //        }
-        //    }
-        //}
-
+        // Завантажує список об’єктів з текстового файлу за вказаним шляхом.
         public void LoadData(string path)
         {
             if (!File.Exists(path))
@@ -106,18 +89,19 @@ namespace Kursova.Models
                 {
                     {
                         if (line.StartsWith("Місто|"))
-                            this.AddGeoObject(City.FromString(line));
+                            AddGeoObject(City.FromString(line));
                         else if (line.StartsWith("Регіон|"))
-                            this.AddGeoObject(GeoRegion.FromString(line));
+                            AddGeoObject(GeoRegion.FromString(line));
                         else if (line.StartsWith("Країна|"))
-                            this.AddGeoObject(Country.FromString(line));
+                            AddGeoObject(Country.FromString(line));
                         else if (line.StartsWith("Континент|"))
-                            this.AddGeoObject(Continent.FromString(line));
+                            AddGeoObject(Continent.FromString(line));
                     }
                 }
             }
         }
 
+        // Фільтрує об’єкти за назвою та координатами.
         public void Filter(ListGeoObjects list, string name, double minlatdouble, double maxlatdouble, double minlondouble, double maxlondouble)
         {
             foreach (var item in list)
@@ -125,13 +109,14 @@ namespace Kursova.Models
                 string strname = item.Name;
                 double latitude = item.Coordinates.Latitude;
                 double longitude = item.Coordinates.Longitude;
-                if (strname.IndexOf(name) > -1&&(latitude>=minlatdouble&&latitude<=maxlatdouble) && (longitude >= minlondouble && longitude <= maxlondouble))
+                if (strname.IndexOf(name) > -1&&latitude>=minlatdouble&&latitude<=maxlatdouble && longitude >= minlondouble && longitude <= maxlondouble)
                 {
-                    this.AddGeoObject(item);
+                    AddGeoObject(item);
                 }
             }
         }
 
+        // Рекурсивно шукає об’єкти в ієрархії.
         public void SearchObj(int ind, ListGeoObjects list, bool first = true)
         {
             string line;
@@ -155,9 +140,9 @@ namespace Kursova.Models
                         city.Region == obj.Name)
                     {
                         City c = City.FromString(Convert.ToString(list[i]));
-                        if (!this.Contains(c))
+                        if (!Contains(c))
                         {
-                            this.AddGeoObject(c);
+                            AddGeoObject(c);
                         } 
                     }
                 }
@@ -171,18 +156,18 @@ namespace Kursova.Models
                         region.Country == obj.Name)
                     {
                         GeoRegion r = GeoRegion.FromString(Convert.ToString(list[i]));
-                        if (!this.Contains(r))
+                        if (!Contains(r))
                         {
-                            this.AddGeoObject(r);
+                            AddGeoObject(r);
                         }
                     }
                 }
-                for (int j = 0; j < this.Count; j += 1)
+                for (int j = 0; j < Count; j += 1)
                 {
                     string l = Convert.ToString(this[j]);
                     if (l.StartsWith("Регіон|"))
                     {
-                        this.SearchObj(j, list, false);
+                        SearchObj(j, list, false);
                     }
                 }
             }
@@ -195,23 +180,24 @@ namespace Kursova.Models
                         country.Continent == obj.Name)
                     {
                         Country c = Country.FromString(Convert.ToString(list[i]));
-                        if (!this.Contains(c))
+                        if (!Contains(c))
                         {
-                            this.AddGeoObject(c);
+                            AddGeoObject(c);
                         }
                     }
                 }
-                for (int j = 0; j < this.Count; j += 1)
+                for (int j = 0; j < Count; j += 1)
                 {
                     string l = Convert.ToString(this[j]);
                     if (l.StartsWith("Країна|"))
                     {
-                        this.SearchObj(j, list, false);
+                        SearchObj(j, list, false);
                     }
                 }
             }
         }
 
+        // Перевіряє, чи міститься об’єкт у списку.
         public bool Contains(GeoObject obj)
         {
             return geoObjectList.Any(item =>
@@ -252,12 +238,13 @@ namespace Kursova.Models
             });
         }
 
+        // Додає об’єкти до списку обраних з урахуванням вибору одиниць виміру.
         public void AddToFavorites(string line, string selected = "Кілометри")
         {
             if (line.StartsWith("Місто|"))
-                this.AddGeoObject(City.FromString(line));
+                AddGeoObject(City.FromString(line));
             else if (line.StartsWith("Регіон|"))
-                this.AddGeoObject(GeoRegion.FromString(line));
+                AddGeoObject(GeoRegion.FromString(line));
             else if (line.StartsWith("Країна|"))
             {
                 var obj = Country.FromString(line);
@@ -265,7 +252,7 @@ namespace Kursova.Models
                 {
                     obj.Area = obj.Area * 1.60934;
                 }
-                this.AddGeoObject(obj);
+                AddGeoObject(obj);
             }
 
             else if (line.StartsWith("Континент|"))
@@ -275,10 +262,11 @@ namespace Kursova.Models
                 {
                     obj.Area = obj.Area * 1.60934;
                 }
-                this.AddGeoObject(obj);
+                AddGeoObject(obj);
             }
         }
 
+        //Генерує і додає до списку тестові дані для комісії
         public void GetTestData()
         {
             City city1 = new City("Харків", (49.989741, 36.233074), 1400000, "Харківська область");
@@ -296,21 +284,21 @@ namespace Kursova.Models
             Country country2 = new Country("Німеччина", (52.516572, 13.405726), 358000, 83500000, "Федеративна держава", "Берлін", "Євразія");
             Country country3 = new Country("Японія", (35.756555, 139.746853), 380000, 125500000, "Конституційна монархія", "Токіо", "Євразія");
             Continent continent1 = new Continent("Євразія", (54.5, 86), 55000000, 460000000);
-            this.AddGeoObject(city1);
-            this.AddGeoObject(city2);
-            this.AddGeoObject(city3);
-            this.AddGeoObject(city4);
-            this.AddGeoObject(city5);
-            this.AddGeoObject(city6);
-            this.AddGeoObject(city7);
-            this.AddGeoObject(city8);
-            this.AddGeoObject(region1);
-            this.AddGeoObject(region2);
-            this.AddGeoObject(region3);
-            this.AddGeoObject(country1);
-            this.AddGeoObject(country2);
-            this.AddGeoObject(country3);
-            this.AddGeoObject(continent1);
+            AddGeoObject(city1);
+            AddGeoObject(city2);
+            AddGeoObject(city3);
+            AddGeoObject(city4);
+            AddGeoObject(city5);
+            AddGeoObject(city6);
+            AddGeoObject(city7);
+            AddGeoObject(city8);
+            AddGeoObject(region1);
+            AddGeoObject(region2);
+            AddGeoObject(region3);
+            AddGeoObject(country1);
+            AddGeoObject(country2);
+            AddGeoObject(country3);
+            AddGeoObject(continent1);
 
         }
 

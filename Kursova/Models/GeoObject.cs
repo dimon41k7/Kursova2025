@@ -6,22 +6,29 @@ using System.Threading.Tasks;
 
 namespace Kursova.Models
 {
+    // Базовий клас, що представляє географічний об'єкт з назвою та координатами.
     public class GeoObject
     {
+        // Назва географічного об'єкта.
         public string Name { get; set; }
+
+        // Географічні координати об'єкта (широта та довгота).
         public (double Latitude, double Longitude) Coordinates { get; set; }
 
+        // Ініціалізує новий екземпляр класу GeoObject з вказаною назвою та координатами.
         public GeoObject(string name, (double Latitude, double Longitude) coordinates)
         {
             Name = name;
             Coordinates = coordinates;
         }
 
+        // Віртуальний метод, який повертає рядкове представлення об'єкта з використанням миль, якщо застосовно.
         public virtual string ToStringInMile()
         {
             return ToString();
         }
 
+        // Відкриває місце на карті Google Maps за координатами, переданими у вигляді рядка.
         public static void ShowInMap(string[] arrword)
         {
             string latitude = arrword[2];
@@ -86,6 +93,7 @@ namespace Kursova.Models
             }
         }
 
+        // Повертає випадковий цікавий факт про міста або географію.
         public static string InterestingFact()
         {
             string[] facts = {

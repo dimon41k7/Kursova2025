@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace Kursova.Models
 {
-    class Continent:GeoObject
+    // Клас, що представляє континент як географічний об'єкт з додатковими властивостями: площею та населенням.
+    class Continent :GeoObject
     {
+        //Площа
         public double Area { get; set; }
+
+        //Населення
         public int Population { get; set; }
 
+        // Конструктор, який ініціалізує новий екземпляр континента з назвою, координатами, площею і населенням.
         public Continent(string name, (double Latitude, double Longitude) coordinates, double area, int population)
             : base(name, coordinates)
         {
@@ -18,15 +23,19 @@ namespace Kursova.Models
             Population = population;
         }
 
+        // Перетворює об'єкт на рядок.
         public override string ToString()
         {
             return $"Континент|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area}|{Population}";  
         }
 
+        //Перетворює об'єкт на рядок, враховуючи конвертацію площі в милі квадратні
         public override string ToStringInMile()
         {
             return $"Континент|{Name}|{Coordinates.Latitude}|{Coordinates.Longitude}|{Area* 0.621371}|{Population}";
         }
+
+        // Створює екземпляр континенту з рядка
         public static new Continent FromString(string line)
         {
             string[] arr = line.Split('|');

@@ -71,6 +71,7 @@
             MinimumSize = new Size(800, 500);
             Name = "FormShowObj";
             Text = "FormShowObj";
+            FormClosing += FormShowObj_FormClosing;
             Load += FormShowObj_Load;
             ResumeLayout(false);
             PerformLayout();

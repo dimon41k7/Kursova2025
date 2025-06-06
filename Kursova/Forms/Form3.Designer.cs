@@ -203,6 +203,7 @@
             MinimumSize = new Size(1350, 500);
             Name = "AddRegionForm";
             Text = "AddRegionForm";
+            FormClosing += AddRegionForm_FormClosing;
             Load += AddRegionForm_Load;
             ResumeLayout(false);
             PerformLayout();

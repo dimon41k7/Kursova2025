@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Kursova.Models;
+using Kursova.Services;
 
 namespace Kursova
 {
@@ -20,6 +21,7 @@ namespace Kursova
         private int indelem;
         private bool boollistall;
         private Form mainForm;
+        private bool closeByBackButton = false;
         public FormRegionEdit(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, int index, bool ifitislistall, Form mainForm)
         {
             listGeoObjects = list;
@@ -34,6 +36,7 @@ namespace Kursova
 
         private void ButtonBack_Click(object sender, EventArgs e)
         {
+            closeByBackButton = true;
             if (mainForm is MainForm main)
             {
                 string selected = main.SelectedMorKm;
@@ -49,7 +52,6 @@ namespace Kursova
                     listFavoritesObjects.RefreshList(listBoxFavorites);
                 }
             }
-            //((MainForm)mainForm).RefreshList();
             mainForm.Show();
             this.Close();
         }
@@ -165,9 +167,9 @@ namespace Kursova
                     listFavoritesObjects[i].Name == obj.Name &&
                     listFavoritesObjects[i].Coordinates.Latitude == obj.Coordinates.Latitude &&
                     listFavoritesObjects[i].Coordinates.Longitude == obj.Coordinates.Longitude &&
-                    currentRegion.Capital==obj.Capital&&
+                    currentRegion.Capital == obj.Capital &&
                     currentRegion.Country == obj.Country &&
-                    currentRegion.Population == obj.Population&&
+                    currentRegion.Population == obj.Population &&
                     currentRegion.Type == obj.Type)
                     {
                         listFavoritesObjects[i] = new GeoRegion(name, (double.Parse(latitude), double.Parse(longitude)), selectedType, country, capital, population);
@@ -257,6 +259,39 @@ namespace Kursova
             listBoxType.Items.Add("Префектура");
             listBoxType.Items.Add("Метрополія");
             listBoxType.SelectedItem = obj.Type;
+        }
+
+        private void FormRegionEdit_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closeByBackButton == false)
+            {
+                var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        using (StreamWriter writer = new("objects.txt"))
+                        {
+                            foreach (var obj in listGeoObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
+
+                        using (StreamWriter writer = new("favoritesobjects.txt"))
+                        {
+                            foreach (var obj in listFavoritesObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
         }
     }
 }

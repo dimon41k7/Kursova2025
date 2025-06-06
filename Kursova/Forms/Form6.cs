@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Kursova.Models;
+using Kursova.Services;
 
 namespace Kursova
 {
@@ -21,6 +21,7 @@ namespace Kursova
         private ListGeoObjects filterlistGeoObjects = new ListGeoObjects();
         private ListGeoObjects filterlistFavoritesObjects = new ListGeoObjects();
         private Form mainForm;
+        private bool closeByBackButton = false;
         public FormFilter(ListGeoObjects list, ListGeoObjects listf, ListBox listBox, ListBox listBox1, Form mainForm)
         {
             listGeoObjects = list;
@@ -33,6 +34,7 @@ namespace Kursova
 
         private void ButtonBack_Click(object sender, EventArgs e)
         {
+            closeByBackButton = true;
             if (mainForm is MainForm main)
             {
                 string selected = main.SelectedMorKm;
@@ -63,7 +65,7 @@ namespace Kursova
                     MessageBox.Show("Назва повинна містити тільки літери.");
                     return;
                 }
-                if ( name.Length >= 100)
+                if (name.Length >= 100)
                 {
                     MessageBox.Show("Некоректна назва! Введіть назву до 100 символів");
                     return;
@@ -172,17 +174,69 @@ namespace Kursova
 
                 if (selected == "Милі")
                 {
-                    filterlistGeoObjects.RefreshListInMile(listBoxGeoObjectsAll);
-                    filterlistFavoritesObjects.RefreshListInMile(listBoxFavorites);
+                    if (filterlistGeoObjects.Count == 0 && filterlistFavoritesObjects.Count == 0)
+                    {
+                        MessageBox.Show("Географічних об’єктів не знайдено");
+                        listGeoObjects.RefreshListInMile(listBoxGeoObjectsAll);
+                        listFavoritesObjects.RefreshListInMile(listBoxFavorites);
+                    }
+                    else
+                    {
+                        filterlistGeoObjects.RefreshListInMile(listBoxGeoObjectsAll);
+                        filterlistFavoritesObjects.RefreshListInMile(listBoxFavorites);
+                    }
+
                 }
                 else
                 {
-                    filterlistGeoObjects.RefreshList(listBoxGeoObjectsAll);
-                    filterlistFavoritesObjects.RefreshList(listBoxFavorites);
+                    if (filterlistGeoObjects.Count == 0 && filterlistFavoritesObjects.Count == 0)
+                    {
+                        MessageBox.Show("Географічних об’єктів не знайдено");
+                        listGeoObjects.RefreshList(listBoxGeoObjectsAll);
+                        listFavoritesObjects.RefreshList(listBoxFavorites);
+                    }
+                    else
+                    {
+                        filterlistGeoObjects.RefreshList(listBoxGeoObjectsAll);
+                        filterlistFavoritesObjects.RefreshList(listBoxFavorites);
+                    }
                 }
             }
             mainForm.Show();
             this.Close();
+        }
+
+        private void FormFilter_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closeByBackButton == false)
+            {
+                var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        using (StreamWriter writer = new("objects.txt"))
+                        {
+                            foreach (var obj in listGeoObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
+
+                        using (StreamWriter writer = new("favoritesobjects.txt"))
+                        {
+                            foreach (var obj in listFavoritesObjects)
+                            {
+                                writer.WriteLine(obj.ToString());
+                            }
+                        }
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
         }
     }
 }
