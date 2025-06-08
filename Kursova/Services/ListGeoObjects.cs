@@ -238,6 +238,64 @@ namespace Kursova.Services
             });
         }
 
+        // Шукає індекс об’єкта в списку.
+        public int SearchInd(GeoObject obj)
+        {
+            int ind = 0;
+            foreach (var item in this)
+            {
+                if (obj is City cityObj && item is City city)
+                {
+                    if (city.Name == cityObj.Name &&
+                        city.Coordinates.Latitude == cityObj.Coordinates.Latitude &&
+                        city.Coordinates.Longitude == cityObj.Coordinates.Longitude &&
+                        city.Population == cityObj.Population &&
+                        city.Region == cityObj.Region)
+                    {
+                        return ind;
+                    }
+                }
+                else if (obj is GeoRegion regionObj && item is GeoRegion region)
+                {
+                    if(region.Name == regionObj.Name &&
+                        region.Coordinates.Latitude == regionObj.Coordinates.Latitude &&
+                        region.Coordinates.Longitude == regionObj.Coordinates.Longitude &&
+                        region.Country == regionObj.Country &&
+                        region.Type == regionObj.Type &&
+                        region.Capital == regionObj.Capital &&
+                        region.Population == regionObj.Population)
+                    {
+                        return ind;
+                    }
+                }
+                else if (obj is Country countryObj && item is Country country)
+                {
+                    if (country.Name == countryObj.Name &&
+                        
+                        country.Continent == countryObj.Continent &&
+                        country.Area == countryObj.Area &&
+                        country.Population == countryObj.Population &&
+                        country.GovernmentType == countryObj.GovernmentType &&
+                        country.Capital == countryObj.Capital)
+                    {
+                        return ind;
+                    }
+                }else if(obj is Continent continentObj && item is Continent continent)
+                {
+                    if(continent.Name==continentObj.Name&&
+                        continent.Coordinates.Latitude == continentObj.Coordinates.Latitude &&
+                        continent.Coordinates.Longitude == continentObj.Coordinates.Longitude &&
+                        continent.Area == continentObj.Area &&
+                        continent.Population == continentObj.Population)
+                    {
+                        return ind;
+                    }
+                }
+                ind += 1;
+            }
+            return 0;
+        }
+
         // Додає об’єкти до списку обраних з урахуванням вибору одиниць виміру.
         public void AddToFavorites(string line, string selected = "Кілометри")
         {

@@ -253,6 +253,58 @@ namespace Kursova
             }
         }
 
+        private void listBoxFavorites_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBoxFavorites.SelectedItem != null)
+            {
+                GeoObject obj = new City("a", (1,1), 1,"a");
+                string line = Convert.ToString(listBoxFavorites.SelectedItem);
+                if (line.StartsWith("Місто|"))
+                    obj = City.FromString(line);
+                else if (line.StartsWith("Регіон|"))
+                    obj = GeoRegion.FromString(line);
+                else if (line.StartsWith("Країна|"))
+                    obj = Country.FromString(line);
+                else if (line.StartsWith("Континент|"))
+                    obj = Continent.FromString(line);
+                int ind = 0;
+                bool dellobj = false;
+                if (listGeoObjects.Contains(obj))
+                {
+                    ind = listGeoObjects.SearchInd(obj);
+                }
+                else
+                {
+                    listGeoObjects.AddGeoObject(obj);
+                    ind = listGeoObjects.Count - 1;
+                    dellobj = true;
+                }
+                ListGeoObjects listShow = new ListGeoObjects();
+                listShow.SearchObj(ind, listGeoObjects);
+                if(dellobj == true)
+                {
+                    listGeoObjects.RemoveGeoObject(listGeoObjects.Count - 1);
+                }
+                string selected = comboBoxArea.SelectedItem.ToString();
+                if (listShow.Count == 0)
+                {
+                    MessageBox.Show("Нічого не вдалося знайти!");
+                    return;
+                }
+                FormShowObj filterForm;
+                if (selected == "Милі")
+                {
+                    filterForm = new FormShowObj(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this, listShow, true);
+                }
+                else
+                {
+                    filterForm = new FormShowObj(listGeoObjects, listFavoritesObjects, listBoxGeoObjectsAll, listBoxFavorites, this, listShow);
+                }
+                this.Hide();
+                filterForm.Show();
+            }
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var result = MessageBox.Show("Ви хочете зберегти дані?", "", MessageBoxButtons.YesNoCancel);

@@ -122,6 +122,7 @@
             listBoxFavorites.Size = new Size(533, 184);
             listBoxFavorites.TabIndex = 7;
             listBoxFavorites.MouseClick += listBoxFavorites_MouseClick;
+            listBoxFavorites.DoubleClick += listBoxFavorites_DoubleClick;
             // 
             // buttonShowObject
             // 
