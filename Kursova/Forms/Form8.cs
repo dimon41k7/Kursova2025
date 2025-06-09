@@ -58,6 +58,7 @@ namespace Kursova
 
         private void Редагувати_Click(object sender, EventArgs e)
         {
+            closeByBackButton = true;
             GeoRegion obj;
             if (boollistall == true)
             {

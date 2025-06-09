@@ -59,6 +59,7 @@ namespace Kursova
 
         private void Редагувати_Click(object sender, EventArgs e)
         {
+            closeByBackButton = true;
             Country obj;
             if (boollistall == true)
             {

@@ -56,6 +56,7 @@ namespace Kursova
 
         private void buttonFilter_Click(object sender, EventArgs e)
         {
+            closeByBackButton = true;
             //перевіряємо iм'я
             string name = textBoxNameFilter.Text.Replace(" ", "");
             if (name != "")
